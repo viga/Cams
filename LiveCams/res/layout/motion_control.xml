@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/faster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:drawableTop="@drawable/add"
+            android:gravity="center"
+            android:text="加 速" />
+
+        <TextView
+            android:id="@+id/toleft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="#00000000"
+            android:drawableTop="@drawable/left"
+            android:gravity="center"
+            android:text="左 转" />
+
+        <TextView
+            android:id="@+id/toup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="#00000000"
+            android:drawableTop="@drawable/up"
+            android:gravity="center"
+            android:text="上 转" />
+
+        <TextView
+            android:id="@+id/todown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="#00000000"
+            android:drawableTop="@drawable/down"
+            android:gravity="center"
+            android:text="下 转" />
+
+        <TextView
+            android:id="@+id/toright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="#00000000"
+            android:drawableTop="@drawable/right"
+            android:gravity="center"
+            android:text="右 转" />
+
+        <TextView
+            android:id="@+id/slower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="#00000000"
+            android:drawableTop="@drawable/subtract"
+            android:gravity="center"
+            android:text="减 速" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/brighten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:drawableTop="@drawable/add"
+            android:gravity="center"
+            android:text="变 亮" />
+
+        <TextView
+            android:id="@+id/darken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:drawableTop="@drawable/subtract"
+            android:gravity="center"
+            android:text="变 暗" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/farer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:drawableTop="@drawable/add"
+            android:gravity="center"
+            android:text="拉 远" />
+
+        <TextView
+            android:id="@+id/nearer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:drawableTop="@drawable/subtract"
+            android:gravity="center"
+            android:text="拉 近" />
+    </LinearLayout>
+
+</RelativeLayout>

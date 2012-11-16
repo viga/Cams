@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="appname"   >图传系统手机终端</string>
+    <string name="setting"      >参数设置</string>
+    <string name="login"        >登录服务</string>
+    <string name="connecting"   >连接中…</string>
+    <string name="logining"     >登录中…</string>
+    <string name="stopping"     >停止中…</string>
+    <string name="logout"       >断开链接</string>
+    <string name="snappic"      >手机拍照</string>
+    <string name="record"       >手机录像</string>
+    <string name="play"         >在线播放</string>
+    <string name="upldpic"      >本地上传</string>
+    <string name="browser"      >本地浏览</string>
+    <string name="devctrl"      >设备遥控</string>
+    <string name="logintitle"   >请确认或修改下列信息:</string>
+    <string name="logouttitle"  >要停止正在进行的登录?</string>
+    <string name="srvipaddr"    >服务器IP地址:</string>
+    <string name="srvport"      >服务器端口:</string>
+    <string name="devtype"      >设备类型:</string>
+    <string name="devid"        >设备ID号:</string>
+    <string name="videosize"    >尺寸(宽x高):</string>
+    <string name="vframerate"   >帧率(fps):</string>
+    <string name="vbitrate"     >码率(bps):</string>
+    <string name="picsize"      >尺寸(宽x高):</string>
+    <string name="picquality"   >压缩质量:</string>
+    <string name="logincheck"   >使能登录前信息确认!</string>
+    <string name="logoutcheck"  >确认要断开服务器链接?</string>
+    <string name="frontvideo"   >背负前置音视频</string>
+    <string name="behindvideo"  >背负后置音视频</string>
+    <string name="servervideo"  >服务器转发音视频</string>
+    <string name="backpackaudio">背负设备音频</string>
+    <string name="serveraudio"  >服务器转发音频</string>
+    <string name="confirm1"     >登  录</string>
+    <string name="confirm2"     >停  止</string>
+    <string name="confirm3"     >确  认</string>
+    <string name="cancel"       >取  消</string>
+    <string name="audiostat"    >音频：0kbps</string>
+    <string name="videostat"    >视频：0kbps</string>
+    
+    <string-array name="vsz4sp">
+    	<item>QCIF(176x144)</item>
+    	<item>QVGA(320x240)</item>
+		<item>CIF(352x288)</item>
+		<item>VGA(640x480)</item>
+    </string-array>
+</resources>

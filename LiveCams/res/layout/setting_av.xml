@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/videoSizeTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/videosize" />
+
+    <Spinner
+        android:id="@+id/videoSizeSp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/videoSizeTv" >
+        <requestFocus />
+    </Spinner>
+
+    <TextView
+        android:id="@+id/vframeRateTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/videoSizeSp"
+        android:text="@string/vframerate" />
+
+    <EditText
+        android:id="@+id/vframeRateEt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/vframeRateTv"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/vbitRateTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/vframeRateEt"
+        android:text="@string/vbitrate" />
+
+    <EditText
+        android:id="@+id/vbitRateEt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/vbitRateTv"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/rsvdTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/vbitRateEt"
+        android:text="" />
+
+    <Button
+        android:id="@+id/confirmBt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rsvdTv"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/rsvdTv2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"            
+        android:layout_below="@+id/confirmBt"
+        android:layout_centerHorizontal="true"
+        android:text="" />
+    
+    <Button
+        android:id="@+id/cancelBt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rsvdTv2"
+        android:text="@string/cancel" />
+
+</RelativeLayout>

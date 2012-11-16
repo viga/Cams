@@ -1,0 +1,2 @@
+set solib-search-path ./obj/local/armeabi
+directory /usr/android-ndk-r8/platforms/android-5/arch-arm/usr/include jni/ffmpeg jni/ffmpeg/include jni/speex jni/speex/include /usr/android-ndk-r8/sources/cxx-stl/system/include
