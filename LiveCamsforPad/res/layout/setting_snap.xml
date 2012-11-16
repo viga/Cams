@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/picSizeTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/picsize" />
+    
+    <Spinner
+        android:id="@+id/picSizeSp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/picSizeTv" >
+        <requestFocus />
+    </Spinner>
+    
+    <TextView
+        android:id="@+id/picQualityTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"            
+        android:layout_below="@+id/picSizeSp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/picquality" />
+    
+    <SeekBar
+        android:id="@+id/picQualitySb"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"            
+        android:layout_below="@+id/picQualityTv"
+        android:layout_centerHorizontal="true"
+        android:max="100"
+        android:text="" />
+    
+    <TextView
+        android:id="@+id/rsvdTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"            
+        android:layout_below="@+id/picQualitySb"
+        android:layout_centerHorizontal="true"
+        android:text="" />
+    
+    <Button
+        android:id="@+id/confirmBt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rsvdTv"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/rsvdTv2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"            
+        android:layout_below="@+id/confirmBt"
+        android:layout_centerHorizontal="true"
+        android:text="" />
+    
+    <Button
+        android:id="@+id/cancelBt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rsvdTv2"
+        android:text="@string/cancel" />
+
+    <TextView
+        android:id="@+id/picQualityValTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/picQualityTv"
+        android:layout_alignBottom="@+id/picQualityTv"
+        android:layout_centerHorizontal="true"
+        android:text="" />
+    
+</RelativeLayout>

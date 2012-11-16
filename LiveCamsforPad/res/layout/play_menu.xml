@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_menu_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:drawableTop="@drawable/menu_share"
+            android:gravity="center"
+            android:text="上传视频" 
+            android:textColor="@android:color/black"/>
+        
+
+        <TextView
+            android:id="@+id/tv_menu_setcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dip"
+            android:background="#00000000"
+            android:drawableTop="@drawable/menu_edit"
+            android:gravity="center"
+            android:text="编码设置" 
+           android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/tv_menu_vedioadjust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dip"
+            android:background="#00000000"
+            android:drawableTop="@drawable/menu_vedioadjust"
+            android:gravity="center"
+            android:text="视频微调" 
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/tv_menu_motionCtrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dip"
+            android:background="#00000000"
+            android:drawableTop="@drawable/menu_motionctrl"
+            android:gravity="center"
+            android:text="云台控制" 
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+
+  
+
+</RelativeLayout>

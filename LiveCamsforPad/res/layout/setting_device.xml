@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/devTypeTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/devtype" >
+        <requestFocus />
+	</TextView>
+
+    <EditText
+        android:id="@+id/devTypeEt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/devTypeTv"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/devIdTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"            
+        android:layout_below="@+id/devTypeEt"
+        android:layout_centerHorizontal="true"
+        android:text="@string/devid" />
+
+    <EditText
+        android:id="@+id/devIdEt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"          
+        android:layout_below="@+id/devIdTv"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="number">
+        <requestFocus />
+    </EditText>
+    
+    <TextView
+        android:id="@+id/rsvdTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"            
+        android:layout_below="@+id/devIdEt"
+        android:layout_centerHorizontal="true"
+        android:text="" />
+    
+    <Button
+        android:id="@+id/confirmBt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rsvdTv"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/rsvdTv2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"            
+        android:layout_below="@+id/confirmBt"
+        android:layout_centerHorizontal="true"
+        android:text="" />
+    
+    <Button
+        android:id="@+id/cancelBt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rsvdTv2"
+        android:text="@string/cancel" >
+        <requestFocus />
+	</Button>
+    
+</RelativeLayout>
