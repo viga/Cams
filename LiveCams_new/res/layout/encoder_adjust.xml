@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="视频尺寸："
+            android:textColor="@android:color/white" />
+
+        <RadioGroup
+            android:id="@+id/rg_videosize"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rb_cif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CIF:(352x288)"
+                android:textColor="@android:color/white" />
+
+            <RadioButton
+                android:id="@+id/rb_hd1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HD1:(704×288)"
+                android:textColor="@android:color/white" />
+
+            <RadioButton
+                android:id="@+id/rb_d1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D1:(704×576)"
+                android:textColor="@android:color/white" />
+            
+        </RadioGroup>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="55dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="帧率 ："
+            android:textColor="@android:color/white" />
+        
+        <TextView
+            android:id="@+id/tv_framerate"
+            android:layout_width="35dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="value"
+            android:textColor="@android:color/white" />
+
+        <SeekBar
+            android:id="@+id/sb_framerate"
+            android:layout_width="405dip"
+            android:layout_height="wrap_content"
+            android:maxHeight="2px"
+            android:minHeight="2px"
+            android:progressDrawable="@layout/seekbar_style"
+            android:thumb="@layout/slide_block"
+            android:thumbOffset="1px" />
+
+        <TextView
+            android:id="@+id/tv_maxframerate"
+            android:layout_width="65dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="max"
+            android:textColor="@android:color/white" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="55dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="码率 ："
+            android:textColor="@android:color/white" />
+        
+        <TextView
+            android:id="@+id/tv_bitrate"
+            android:layout_width="35dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="value"
+            android:textColor="@android:color/white" />
+
+        <SeekBar
+            android:id="@+id/sb_bitrate"
+            android:layout_width="405dip"
+            android:layout_height="wrap_content"
+            android:maxHeight="2px"
+            android:minHeight="2px"
+            android:progressDrawable="@layout/seekbar_style"
+            android:thumb="@layout/slide_block"
+            android:thumbOffset="1px" />
+
+        <TextView
+            android:id="@+id/tv_maxbitrate"
+            android:layout_width="65dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="max"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="55dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="I帧间隔: "
+            android:textColor="@android:color/white" />
+        
+        <TextView
+            android:id="@+id/tv_interval"
+            android:layout_width="35dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="value"
+            android:textColor="@android:color/white" />
+
+        <SeekBar
+            android:id="@+id/sb_interval"
+            android:layout_width="405dip"
+            android:layout_height="wrap_content"
+            android:maxHeight="2px"
+            android:minHeight="2px"
+            android:progressDrawable="@layout/seekbar_style"
+            android:thumb="@layout/slide_block"
+            android:thumbOffset="1px" />
+
+        <TextView
+            android:id="@+id/tv_maxinterval"
+            android:layout_width="65dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="max"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</LinearLayout>

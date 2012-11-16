@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="230dip"
+    android:id="@+id/ll_nation_pop"
+    android:layout_height="70dip"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/ll_nation_pop_play"
+        android:layout_width="wrap_content"
+        android:layout_height="70dip"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/img2" />
+
+        <TextView
+            android:layout_width="65dip"
+            android:layout_height="20dip"
+             android:gravity="center_horizontal"
+            android:text="查   看" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dip"
+        android:layout_height="50dip"
+        android:background="#ff00ff66" />
+
+    <LinearLayout
+        android:id="@+id/ll_nation_pop_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="70dip"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/img1" />
+
+        <TextView
+            android:layout_width="65dip"
+            android:layout_height="20dip"
+            android:gravity="center_horizontal"
+            android:text="删   除" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dip"
+        android:layout_height="50dip"
+        android:background="#ff00ff66" />
+
+    <LinearLayout
+        android:id="@+id/ll_nation_pop_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="70dip"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/img3" />
+
+        <TextView
+            android:layout_width="65dip"
+             android:gravity="center_horizontal"
+            android:layout_height="20dip"
+            android:text="上   传" />
+    </LinearLayout>
+
+</LinearLayout>

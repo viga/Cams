@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="亮度： "
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/tv_brightness"
+            android:layout_width="32dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_gravity="center_vertical"
+            android:text="0"
+            android:textColor="@android:color/white"/>
+
+        <SeekBar
+            android:id="@+id/sb_brightness"
+            android:layout_width="455dip"
+            android:layout_height="wrap_content"
+            android:maxHeight="2px"
+            android:minHeight="2px"
+            android:progressDrawable="@layout/seekbar_style"
+            android:thumb="@layout/slide_block"
+            android:thumbOffset="1px" >
+        </SeekBar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="255"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="色度： "
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/tv_hue"
+            android:layout_width="32dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_gravity="center_vertical"
+            android:text="0"
+            android:textColor="@android:color/white"/>
+
+        <SeekBar
+            android:id="@+id/sb_hue"
+            android:layout_width="455dip"
+            android:layout_height="wrap_content"
+            android:maxHeight="2px"
+            android:minHeight="2px"
+            android:progressDrawable="@layout/seekbar_style"
+            android:thumb="@layout/slide_block"
+            android:thumbOffset="1px" >
+        </SeekBar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="127"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="对比度："
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/tv_contrast"
+            android:layout_width="32dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="0"
+            android:textColor="@android:color/white"/>
+
+        <SeekBar
+            android:id="@+id/sb_contrast"
+            android:layout_width="455dip"
+            android:layout_height="wrap_content"
+            android:maxHeight="2px"
+            android:minHeight="2px"
+            android:progressDrawable="@layout/seekbar_style"
+            android:thumb="@layout/slide_block"
+            android:thumbOffset="1px" >
+        </SeekBar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="255"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="饱和度："
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/tv_saturation"
+            android:layout_width="32dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="0"
+            android:textColor="@android:color/white"/>
+
+        <SeekBar
+            android:id="@+id/sb_saturation"
+            android:layout_width="455dip"
+            android:layout_height="wrap_content"
+            android:maxHeight="2px"
+            android:minHeight="2px"
+            android:progressDrawable="@layout/seekbar_style"
+            android:scrollbarStyle="outsideOverlay"
+            android:thumb="@layout/slide_block"
+            android:thumbOffset="1px" >
+        </SeekBar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="255"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

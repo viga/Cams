@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/listview_item_bg" >
+  <ImageView 
+      android:layout_marginLeft="20px"
+        android:id="@+id/iv_preview"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        android:src="@drawable/vedio_phone"/>
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"	
+    android:orientation="vertical">
+    <TextView 
+        android:layout_marginLeft="40px"
+        android:id="@+id/tv_lvitem_filename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:text="文件名"/>
+ <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3px"
+        android:layout_marginLeft="40px"
+        android:textSize="12sp"
+        android:text="文件大小： "
+        android:textColor="@android:color/black"/>
+    <TextView 
+        android:id="@+id/tv_lvitem_filesize"
+        android:layout_marginTop="3px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@android:color/black"/>
+    </LinearLayout>
+ <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3px"
+        android:layout_marginLeft="40px"
+        android:textSize="12sp"
+        android:text="上传详情： "
+        android:textColor="@android:color/black"/>
+    <TextView 
+        android:id="@+id/tv_lvitem_infos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3px"
+        android:textSize="12sp"
+        android:textColor="@android:color/black"/>
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>
