@@ -9,8 +9,11 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -34,6 +37,7 @@ import android.widget.Toast;
 
 import com.vdsp.CmdSend;
 import com.viga.adapter.NationListAdapter;
+import com.viga.engine.MyApplication;
 import com.viga.utils.Utils;
 
 public class NationScanActivity extends Activity implements OnClickListener {
@@ -45,11 +49,13 @@ public class NationScanActivity extends Activity implements OnClickListener {
 	private File files;
 	private static String path = Environment.getExternalStorageDirectory().getAbsolutePath();
 	private PopupWindow mPop;
+	private SharedPreferences mysp;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_nation_scan);
+        MyApplication.getInstance().addActivity(NationScanActivity.this);
         lv_nation_files=(ListView) findViewById(R.id.lv_nation);
         tv_nation_photo=(TextView) findViewById(R.id.tv_nation_photo);
         tv_nation_video=(TextView) findViewById(R.id.tv_nation_video);
@@ -59,7 +65,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
         tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg2));
 		tv_nation_photo.setClickable(false);
         mlistFiles("photo");
-        
+        mysp=this.getSharedPreferences("fileupload", Context.MODE_PRIVATE);
         
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {    
         		                }else {    
@@ -126,14 +132,16 @@ public class NationScanActivity extends Activity implements OnClickListener {
 			if(thisFile!=null){
 					if("image/*".equals(Utils.getMIMEType(thisFile))){
 						if(uploadPicToS(thisFile)){
-						File newFile  = new File(path+"/LiveCams/photo/v"+thisFile.getName());
-						thisFile.renameTo(newFile);
-						mlistFiles("photo");
+							Editor editor=mysp.edit();
+							editor.putBoolean(thisFile.getName(), true);
+		    				editor.commit();
+		    				mlistFiles("photo");
 						}
 					}else{
 						if(uploadVideoToS(thisFile)){
-						File newFile  = new File(path+"/LiveCams/video/v"+thisFile.getName());
-						thisFile.renameTo(newFile);
+							Editor editor=mysp.edit();
+							editor.putBoolean(thisFile.getName(), true);
+		    				editor.commit();
 						mlistFiles("video");
 						}
 					}
@@ -178,8 +186,8 @@ public class NationScanActivity extends Activity implements OnClickListener {
 	}
 	//上传视频
 	private boolean uploadVideoToS(final File thisFile){
-		
-		return false;
+		//DataProc.startNationVideoUpload(thisFile.getName());
+		return true;
 	}
 	private void mlistFiles(String filename) {
 		lv_nation_files.removeAllViewsInLayout();

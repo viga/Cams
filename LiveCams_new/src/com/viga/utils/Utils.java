@@ -29,6 +29,7 @@ public class Utils {
     		((ip>>>8)&0xFF)+"."+
     		((ip>>>16)&0xFF)+"."+
     		((ip>>>24)&0xFF);
+    	
     	return ipstr;
     }
     
@@ -135,7 +136,8 @@ public class Utils {
     public static long getFileLength(String filename){
     	long len=0;
     	try{
-	    	FileInputStream fs=new FileInputStream(filename);
+			@SuppressWarnings("resource")
+			FileInputStream fs=new FileInputStream(filename);
 	    	len=fs.available();
     	}catch(FileNotFoundException e){
     		e.printStackTrace();

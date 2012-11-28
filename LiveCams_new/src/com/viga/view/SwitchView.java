@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+// 开关的的自定义VIEW
 public class SwitchView extends LinearLayout implements OnClickListener {
 	
 	private static final int FLAG_MOVE_TRUE = 1;

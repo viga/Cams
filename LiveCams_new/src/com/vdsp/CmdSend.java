@@ -3,6 +3,9 @@ package com.vdsp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
 import com.vdsp.CmdRecMgr.CmdRec;
@@ -13,7 +16,7 @@ public class CmdSend {
 	private final static int	TIMEOUT=3000;//UNIT:ms
 	private static CmdRecMgr	cmdMgr=new CmdRecMgr();
 	private static Vca			vca=new Vca();
-    
+	private static SharedPreferences mysp;
 	/*发送请求上传数据命令*/
     public static boolean requestSendData(int video,boolean audioen,boolean videoen,boolean record){
 		if(SettingAndStatus.VcaStatus.LOGINED==SettingAndStatus.vcaStatus.status){
@@ -212,7 +215,7 @@ public class CmdSend {
     	return(false);
     }
     /*发送通知背负设备上传抓拍命令*/
-    public static boolean noticeSnap(int count,boolean record){
+    public static boolean noticeSnap(int count,boolean record,Context context){
 		if(SettingAndStatus.VcaStatus.LOGINED==SettingAndStatus.vcaStatus.status){
 			int seqno=Vca.getSeqno(); 
 			Date date=new Date();
@@ -227,6 +230,12 @@ public class CmdSend {
 			if(!Vca.sendCommand(CmdId.NOTICE_UPLOADSNAP,cmdparam.getBytes(),
 				cmdparam.length(),null,0,seqno,TIMEOUT)){
 				Log.v(TAG,"通知背负上传抓拍图片异常！");
+				if(context !=null){
+					mysp=context.getSharedPreferences("fileupload", Context.MODE_PRIVATE);
+					Editor editor=mysp.edit();
+					editor.putBoolean(datetime+"-0.jpg", false);
+					editor.commit();
+				}
 				DispatchHandler.submitLongNotice("警告：命令发送异常！");
 			}else{
 				if(record){
@@ -234,6 +243,12 @@ public class CmdSend {
 					datetime=format.format(date).toString();
 					CmdRec cmd=cmdMgr.new CmdRec("notice_uploadsnap",seqno,datetime);
 					CmdRecMgr.addCmdRec(cmd);
+					if(context !=null){
+						mysp=context.getSharedPreferences("fileupload", Context.MODE_PRIVATE);
+						Editor editor=mysp.edit();
+						editor.putBoolean(datetime+"-0.jpg", true);
+						editor.commit();
+					}
 				}
 				return(true);
 			}

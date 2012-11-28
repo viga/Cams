@@ -50,5 +50,6 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_nation_scan">NationScanActivity</string>
     <string name="title_activity_list_photo_acticity">ListPhotoActicity</string>
+    <string name="title_activity_setting_detail">SettingDetailActivity</string>
 
 </resources>

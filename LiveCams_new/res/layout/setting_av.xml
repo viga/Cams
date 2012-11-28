@@ -2,9 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-
+	<TextView 
+	    android:id="@+id/srvIpTitle"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:textSize="15sp"
+	    android:text="录像参数设置"
+	    android:gravity="center_horizontal"
+	    />
     <TextView
         android:id="@+id/videoSizeTv"
+        android:layout_marginTop="20px"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -68,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rsvdTv"
-        android:text="" />
+        android:text="确  定" />
 
     <TextView
         android:id="@+id/rsvdTv2"

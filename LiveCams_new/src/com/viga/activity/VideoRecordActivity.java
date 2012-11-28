@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.vdsp.DispatchHandler;
 import com.viga.engine.H264Stream;
+import com.viga.engine.MyApplication;
 import com.viga.engine.SettingAndStatus;
 
 public class VideoRecordActivity extends Activity {
@@ -44,7 +45,7 @@ public class VideoRecordActivity extends Activity {
         	WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.camera);
-        
+        MyApplication.getInstance().addActivity(VideoRecordActivity.this);
         Intent intent=this.getIntent();
         requestCode=intent.getIntExtra("requestcode",0);
         oldHandler=DispatchHandler.setHandler(handler); 
@@ -90,12 +91,8 @@ public class VideoRecordActivity extends Activity {
 	    			int width,height;
 	    			mediaRecorder=new MediaRecorder();
 	    			mediaRecorder.setCamera(camera);
-//	    			if(SettingAndStatus.vcaStatus.status!=0)
-//	    			mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 	    			mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 	    			mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP); 
-//	    			if(SettingAndStatus.vcaStatus.status!=0)
-//	    			mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 	    			mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
 	    			if(0!=SettingAndStatus.settings.vframerate){
 	    				mediaRecorder.setVideoFrameRate(SettingAndStatus.settings.vframerate);
@@ -108,11 +105,7 @@ public class VideoRecordActivity extends Activity {
 	    				mediaRecorder.setVideoSize(width,height);
 	    			}
 	    			mediaRecorder.setOutputFile(sockfd.getFileDescriptor());
-//	    			if(SettingAndStatus.vcaStatus.status!=0){
-//	    			SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-//					String filename = format.format(new Date());
-//	    			mediaRecorder.setOutputFile("/mnt/sdcard/LiveCams/video/"+filename+".3gp");//直接录文件
-//	    			}
+	    			//mediaRecorder.setOutputFile("/mnt/sdcard/LiveCams/good.3gp");//直接录文件
 	    			mediaRecorder.setPreviewDisplay(surfaceHolder.getSurface());
 
 		    		//启动录像机

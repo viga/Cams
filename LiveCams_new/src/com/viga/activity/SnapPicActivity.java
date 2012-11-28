@@ -8,6 +8,8 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 
 import com.vdsp.CmdSend;
 import com.vdsp.DispatchHandler;
+import com.viga.engine.MyApplication;
 import com.viga.engine.SettingAndStatus;
 import com.viga.utils.Utils;
 
@@ -36,7 +39,7 @@ public class SnapPicActivity extends Activity {
 	private Camera 					camera=null;  
 	private boolean					capturing=false;
 	private Handler					oldHandler=null;
-
+	private SharedPreferences Mysp;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +47,9 @@ public class SnapPicActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         	WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.camera);
+        MyApplication.getInstance().addActivity(SnapPicActivity.this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        
+        Mysp=this.getSharedPreferences("uploadfile", MODE_PRIVATE);
         oldHandler=DispatchHandler.setHandler(handler);  
         setupSurfaceView();
     }
@@ -132,6 +136,8 @@ public class SnapPicActivity extends Activity {
 			//上传照片
 			if(CmdSend.uploadSnap(date,param[0],length,true)){
 				ifUpsucc=true;
+			}else{
+				ifUpsucc=false;
 			}
  			
 			//存成文件
@@ -141,18 +147,21 @@ public class SnapPicActivity extends Activity {
 		    		String filename=format.format(date)+".jpg";
 		    		String root=Environment.getExternalStorageDirectory().getPath();
 		    		String path=root+"/LiveCams/photo";
-		    			
 		    		File   file=new File(path);	
 		    		if(!file.exists()){
 		    			if(!file.mkdir()){
 		    				Log.v(TAG,"无法创建目录："+path+"!");
 		    			}
 		    		}	  
-		    		if(file.exists()){
+		    		if(file.exists()){	
+		    			file=new File(path+"/"+filename);
+		    			Editor editor=Mysp.edit();
 		    			if(ifUpsucc){
-		    				file=new File(path+"/v"+filename);
+		    				editor.putBoolean(filename, true);
+		    				editor.commit();
 		    			}else{
-		    				file=new File(path+"/"+filename);
+		    				editor.putBoolean(filename, false);
+		    				editor.commit();
 		    			}
 			    		try{
 			    			FileOutputStream fos=new FileOutputStream(file);
@@ -183,7 +192,6 @@ public class SnapPicActivity extends Activity {
     		}
 		}
     }
-    
     /*相机操作*/
     private SurfaceHolder.Callback surfaceCallback=new SurfaceHolder.Callback(){
     	public void surfaceCreated(SurfaceHolder holder) {  

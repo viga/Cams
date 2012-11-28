@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.vdsp.CmdSend;
 import com.vdsp.DispatchHandler;
 import com.viga.engine.DataProc;
+import com.viga.engine.MyApplication;
 import com.viga.engine.SettingAndStatus;
 
 public class VideoPlayActivity extends Activity implements OnTouchListener,OnSeekBarChangeListener{
@@ -55,7 +56,7 @@ public class VideoPlayActivity extends Activity implements OnTouchListener,OnSee
 	private PopupWindow 	motionCtrlPanel=null;
 	private PopupWindow		videoAdjustPanel=null;
 	private PopupWindow		encoderAdjustPanel=null;
-	
+	private Context context=VideoPlayActivity.this;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class VideoPlayActivity extends Activity implements OnTouchListener,OnSee
         	WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.play);
-        
+        MyApplication.getInstance().addActivity(VideoPlayActivity.this);
         Intent intent=this.getIntent();
         requestCode=intent.getIntExtra("requestcode",0);
         videoid=intent.getIntExtra("videoid",0);
@@ -79,7 +80,8 @@ public class VideoPlayActivity extends Activity implements OnTouchListener,OnSee
         ttv.setText(0==videoid?getString(R.string.servervideo):
         	(1==videoid?getString(R.string.frontvideo):
         	(2==videoid?getString(R.string.behindvideo):"")));
-        
+        ttv.getBackground().setAlpha(180);
+        findViewById(R.id.RL_BG).getBackground().setAlpha(180);
         playrl=(RelativeLayout)findViewById(R.id.playRl);
         playrl.setOnKeyListener(new OnKeyListener(){
 			public boolean onKey(View v,int keyCode,KeyEvent event) {
@@ -206,7 +208,8 @@ public class VideoPlayActivity extends Activity implements OnTouchListener,OnSee
     	int actionCode=event.getAction();
     	if(actionCode==MotionEvent.ACTION_DOWN){ 
     		if(!motionCtrlFlag && !videoAdjustFlag){
-    			CmdSend.noticeSnap(1,true);
+    			CmdSend.noticeSnap(1,true,context);
+    			Toast.makeText(getApplicationContext(), "抓拍!", Toast.LENGTH_SHORT).show();
     			return true;
     		}
     	}

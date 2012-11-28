@@ -11,6 +11,7 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.viga.engine.MyApplication;
 import com.viga.engine.SettingAndStatus;
 import com.viga.utils.Utils;
 
@@ -21,7 +22,7 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        
+        MyApplication.getInstance().addActivity(LoginActivity.this);
         Intent intent=this.getIntent();
         requestCode=intent.getIntExtra("requestcode",0);
         ((EditText)findViewById(R.id.srvIpaddrEt)).setText(

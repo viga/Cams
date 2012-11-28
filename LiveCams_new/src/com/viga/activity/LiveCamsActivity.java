@@ -21,13 +21,17 @@ import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
 
 import com.vdsp.CmdId;
 import com.vdsp.CmdRecMgr;
@@ -38,10 +42,12 @@ import com.vdsp.NoticeId;
 import com.vdsp.Vca;
 import com.vdsp.CmdRecMgr.CmdRec;
 import com.viga.engine.DataProc;
+import com.viga.engine.MyApplication;
 import com.viga.engine.SettingAndStatus;
 import com.viga.utils.Utils;
 import com.viga.utils.Utils.SDFileWriter;
 import com.viga.utils.Utils.ThreadExt;
+import com.viga.view.MyAnimation;
 
 public class LiveCamsActivity extends Activity {
 	private final static String TAG = "LIVECAMS";
@@ -54,18 +60,19 @@ public class LiveCamsActivity extends Activity {
 	private Vca.Param vcaParam = vca.new Param();
 	private Handler oldHandler = null;
 	private AudioManager mAudioManager;
-
+	private ImageButton ib_home,ib_setting,ib_login,ib_quit;
+	private RelativeLayout level2;
+	private boolean isLevel2Show = true,flag_login=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.main);
 		mainGridView = (GridView) findViewById(R.id.mainGridView);
 		oldHandler = DispatchHandler.setHandler(handler);
 		mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-
+		MyApplication.getInstance().addActivity(LiveCamsActivity.this);
 		SettingAndStatus.init(this);
 		SettingAndStatus.load(null);
 		setupMainGridView();
@@ -81,7 +88,28 @@ public class LiveCamsActivity extends Activity {
 		mAudioManager.setStreamMute(AudioManager.STREAM_VOICE_CALL, true);
 		mAudioManager.startBluetoothSco();
 	}
-
+	@Override
+	public void onBackPressed() {
+		quitApp();
+	}
+	//完全退出应用程序
+	private void quitApp() {
+		AlertDialog dialog = new AlertDialog.Builder(LiveCamsActivity.this)
+		.setTitle("提示")
+		.setMessage("确认退出应用程序？").setCancelable(false)
+		.setPositiveButton("确 认", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				MyApplication.getInstance().exit();//完全退出
+			}
+		}).setNegativeButton("取 消", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				ib_quit.setImageDrawable(null);
+				dialog.cancel();
+				
+			}
+		}).create();
+		dialog.show();
+	}
 	@Override
 	public void onStop() {
 		if (DispatchHandler.isCurrent(handler)) {
@@ -206,6 +234,51 @@ public class LiveCamsActivity extends Activity {
 				"ItemImage", "ItemText" }, new int[] { R.id.ItemImage, R.id.ItemText });
 		mainGridView.setAdapter(gridViewAdapter);
 		mainGridView.setOnItemClickListener(new GvItemClickListener());
+		
+		ib_home=(ImageButton) findViewById(R.id.ib_home);
+		ib_setting=(ImageButton) findViewById(R.id.ib_setting);
+		ib_login=(ImageButton) findViewById(R.id.ib_login);
+		ib_quit=(ImageButton) findViewById(R.id.ib_quit);
+		level2=(RelativeLayout) findViewById(R.id.level2);
+		com.viga.view.MyAnimation.startAnimationOUT(level2, 500, 500);
+		isLevel2Show= false;
+		ib_home.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				if(!isLevel2Show){
+					MyAnimation.startAnimationIN(level2, 500);
+				}else{
+						MyAnimation.startAnimationOUT(level2, 500, 0);
+					}
+				isLevel2Show = !isLevel2Show;
+			}
+		});
+		ib_setting.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				ib_setting.setImageDrawable(getResources().getDrawable(R.drawable.v5_2_1_desktop_list_settings));
+				settingClickProcess();
+			}
+		});
+		ib_login.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				if(!flag_login){
+				ib_login.setImageDrawable(getResources().getDrawable(R.drawable.v5_2_1_desktop_list_friends));
+				flag_login=true;
+				}else{
+				ib_login.setImageDrawable(getResources().getDrawable(R.drawable.v5_2_1_desktop_list_friends_blue));		
+				flag_login=false;
+				}
+				loginClickProcess(null);
+			}
+		});
+		ib_quit.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				ib_quit.setImageDrawable(getResources().getDrawable(R.drawable.v5_2_1_desktop_list_log_out));
+				quitApp();
+			}
+		});
+		
 	}
 
 	/* 修改GridView中Login项中的文字 */
@@ -341,7 +414,8 @@ public class LiveCamsActivity extends Activity {
 					if ("request_uploadsnap".equals(rec.cmd)) {
 						if (1 == msgparam.result) {
 							Log.v(TAG, "成功上传照片" + (String) rec.object + "!");
-							DispatchHandler.submitShortNotice("提示：成功上传照片(" + rec.object.toString().trim()+ ")!");
+							DispatchHandler.submitShortNotice("提示：成功上传照片(" + rec.object.toString().trim()
+									+ ")!");
 						} else {
 							Log.v(TAG, "上传照片(" + (String) rec.object + ")失败!");
 							DispatchHandler.submitLongNotice("警告：上传照片(" + (String) rec.object + ")失败!");
@@ -680,7 +754,7 @@ public class LiveCamsActivity extends Activity {
 			}
 		} else {
 			Log.v(TAG, "打开通信模块失败!");
-			Utils.showLongNotice(this, "警告：打开通信模块失败!");
+			Utils.showLongNotice(this, "警告：打开通信模块失败!查看是否已连接背负设备");
 		}
 		return ret;
 	}

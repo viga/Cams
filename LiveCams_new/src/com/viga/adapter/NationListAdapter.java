@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,11 @@ public class NationListAdapter extends BaseAdapter{
 	private static ImageView iv;
 	private Context context;
 	private List<File> filelist = new ArrayList<File>();
+	private SharedPreferences mysp;
 	public NationListAdapter(List<File> filelist,Context context){
 		this.filelist=filelist;
 		this.context=context;
+		mysp=context.getSharedPreferences("fileupload", Context.MODE_PRIVATE);
 	}
 	
 	public int getCount() {
@@ -53,7 +56,8 @@ public class NationListAdapter extends BaseAdapter{
 		tv.setText(filename);
 		tv_infos=(TextView) view.findViewById(R.id.tv_lvitem_infos);
 		//判断上传与否
-		if("v".equalsIgnoreCase(filename.substring(0, 1))){
+		
+		if(mysp.getBoolean(filename, false)){
 			tv_infos.setText("上传成功");
 		}else{
 			tv_infos.setText("未上传");

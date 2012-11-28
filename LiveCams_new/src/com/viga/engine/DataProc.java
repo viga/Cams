@@ -1,7 +1,10 @@
 package com.viga.engine;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -33,6 +36,8 @@ public class DataProc {
 	public static ThreadExt audioRecAndTx = null;
 	public static ThreadExt videoRxAndPlay = null;
 	public static ThreadExt audioRxAndPlay = null;
+	public static ThreadExt videoNationUpload=null;
+	public static ThreadExt audioNationUpload=null;
 
 	/* 刷新接收到的音视频码率 */
 	private static void refreshProgressBar(int who, int prog) {
@@ -42,7 +47,27 @@ public class DataProc {
 		msg.arg2 = prog;
 		DispatchHandler.sendMessage(msg);
 	}
-
+	public static void startNationVideoUpload(final String filename){
+		if(null==videoNationUpload){
+			videoNationUpload=utils.new ThreadExt(new Runnable(){
+				public void run() {
+					videoNaitonUpload(videoNationUpload,filename);
+				}
+			});
+			videoNationUpload.start();
+		}
+	}
+	public static void startNationAudioUpload(final String filename){
+		if(null==audioNationUpload){
+			videoNationUpload=utils.new ThreadExt(new Runnable(){
+				public void run() {
+					audioNaitonUpload(audioNationUpload,filename);
+				}
+			});
+			audioNationUpload.start();
+		}
+	}
+	
 	/**/
 	public static void startVideoRxAndPlay(int priority, Object userdata) {
 		if (null == videoRxAndPlay) {
@@ -141,7 +166,12 @@ public class DataProc {
 			audioRecAndTx = null;
 		}
 	}
-
+	public static void stopAudioUpload() {
+		if (null != audioNationUpload) {
+			audioNationUpload.finish();
+			audioNationUpload = null;
+		}
+	}
 	public static void startRxAndPlay(int vprio, int aprio, Object vud,
 			Object aud) {
 		startAudioRxAndPlay(aprio, aud);
@@ -175,15 +205,239 @@ public class DataProc {
 //					try {
 //						socket = server.accept();
 //						System.out.println(socket.getPort()+"");
-//						new Thread(new HanderforTestCode(socket)).start();
+//						new Thread(new HanderforTestCode(socket)).start(); 
 //						break;
 //					} catch (SocketTimeoutException e) {
 //					}
 //				}
 //			}
 //		} catch (Exception e) {
+//			e.printStackTrace();
 //		}
 //	}
+	//本地上传音频
+	protected static void audioNaitonUpload(ThreadExt thread, String filename) {
+		try {
+		File file = new File(filename);
+		FileInputStream fis = new FileInputStream(file);
+		BufferedInputStream in = new BufferedInputStream(fis);
+		int bufsize = AudioRecord.getMinBufferSize(
+				SettingAndStatus.settings.isplrt,
+				AudioFormat.CHANNEL_CONFIGURATION_MONO,
+				AudioFormat.ENCODING_PCM_16BIT);
+		int headlen = (1 == SettingAndStatus.settings.speexen) ? 4 : 4 * 4;
+		int minsize = (SettingAndStatus.settings.isplrt * 20 * 2) / 1000;// 20ms的音频数据量
+		bufsize = ((bufsize + minsize - 1) / minsize) * minsize;
+		byte[] buffer = new byte[bufsize + headlen];
+		int size, offset = headlen, frameno = 0;
+
+		/* 启动音频采集-编码-存储-发送流水线 */
+		long timestamp = new Date().getTime();		
+		while (!thread.isExit()) {
+			size = in.read(buffer, offset, bufsize + headlen - offset);
+			if (size != AudioRecord.ERROR_INVALID_OPERATION) {
+				offset += size;
+				if (offset == (bufsize + headlen)) {
+					if (1 == SettingAndStatus.settings.speexen) {
+						// 前4个字节为时间戳，后面为音频PCM数据，
+						// 提交给VCA，由其编码、打包和发送!!!!!
+						Utils.longToByte4(timestamp, buffer, 0);
+					} else {
+						// 前20个字节依次为时间戳、数据类型、长度和帧序号，
+						// 后面为音频PCM数据，提交给VCA，尤其打包发送!!!
+						size = Utils.longToByte4(timestamp, buffer, 0);
+						size += Utils.intToByte4(0x00000030, buffer, size);
+						size += Utils.intToByte4(bufsize, buffer, size);
+						size += Utils.intToByte4(frameno++, buffer, size);
+					}
+					if (SettingAndStatus.VcaStatus.LOGINED == SettingAndStatus.vcaStatus.status
+							&& SettingAndStatus.phoneDataSending) {
+						if (!Vca.putAudioData(buffer, bufsize + headlen, 1000)) {
+							Log.v(TAG, "发送音频数据异常!");
+						}
+					}
+					in.close();
+					timestamp = new Date().getTime();
+					offset = headlen;
+				}
+			}
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//本地视频上传
+	protected static void videoNaitonUpload(ThreadExt thread,String filename) {
+		try {
+			int  length=1024*1024;//和Vca.Param中的videofrmlen保持一致;
+	    	byte buffer[]=new byte[length];
+	    	byte head[]=new byte[5];
+	    	int size,offset,payloadlen,frameno;
+	    	boolean breakflag=true;
+	    	long begin,end;
+	    	File file = new File(filename);
+			FileInputStream fis= new FileInputStream(file);
+			BufferedInputStream in = new BufferedInputStream(fis);
+			if(!thread.isExit()){
+        		//开启音频
+				filename = filename.split(".")[0];
+				System.out.println(filename);
+				//startNationAudioUpload(filename);
+        	}
+			/*丢弃前52个字节头（24+4+24）,适合的平台：
+			 * HTC510E,MIONEPLUS*/
+			frameno=0;
+			breakflag=false;
+			offset=0;
+			if((SettingAndStatus.isHtcC510e() || SettingAndStatus.isMiOnePlus())){
+				while(!breakflag && !thread.isExit() && offset<52){
+					try{
+						size=in.read(buffer,offset,52-offset);
+						
+						if(size>=0){
+							offset+=size;
+						}else{
+							breakflag=true;
+		    			}	
+					}catch(SocketTimeoutException e){
+						if(!SettingAndStatus.avrecording){
+							breakflag=true;
+						}
+					}
+				}		
+				
+			}
+       	
+			while(!breakflag && !thread.isExit()){
+				if((SettingAndStatus.isHtcC510e() || SettingAndStatus.isMiOnePlus())){
+					/*读取载荷数据的长度(4B)以及NAL头(1B)*/
+		    		offset=0;
+					while(!breakflag && !thread.isExit() && offset<head.length){
+						try{
+							size=in.read(head,offset,head.length-offset);
+							if(size>=0){
+			    				offset+=size;
+							}else{
+								breakflag=true;
+			    			}
+						}catch(SocketTimeoutException e){
+							if(!SettingAndStatus.avrecording){
+								breakflag=true;
+							}
+						}
+					}	
+					
+					if(!breakflag && !thread.isExit())
+					{
+						/*检查数据是否异常*/
+						payloadlen=Utils.byte4ToInt(head,0);
+						if(0!=(head[4]&0x80) || (head[4]&0x1F)<1 || (head[4]&0x1F)>13 || payloadlen<=0 || 
+							payloadlen>H264Stream.getMaxFrameLength(SettingAndStatus.settings.videosize)){
+							breakflag=true;
+							break;
+						}
+						
+						/*检查是否需要重新分配缓冲区*/
+						long timestamp=new Date().getTime();
+						if(payloadlen>length){frameno=0;
+							length=((payloadlen+1023)/1024+1)*1024;
+							buffer=new byte[length];
+							Log.v(TAG,"重新分配"+length+"字节缓冲区!");
+						}
+						
+						/*检查是否是IDR，如果是则需要插入SPS+PPS*/
+						offset=H264Stream.getFrameHeadLength();
+						boolean idr=H264Stream.isIDR(head[4]);
+			    		if(idr){
+			    			offset+=H264Stream.writeHead(buffer,offset,length-offset);
+							offset+=H264Stream.writeSPS(buffer,offset,length-offset,SettingAndStatus.settings.videosize);
+							offset+=H264Stream.writeHead(buffer,offset,length-offset);
+							offset+=H264Stream.writePPS(buffer,offset,length-offset);
+			    		}
+			    		
+						/*读取载荷数据并适当延时*/
+						begin=(new Date()).getTime();
+						offset+=H264Stream.writeHead(buffer,offset,length-offset);
+						payloadlen+=offset;
+						buffer[offset++]=head[4];//NAL头
+						while(!breakflag && !thread.isExit() && offset<payloadlen){    	 
+							try{
+								size=in.read(buffer,offset,payloadlen-offset);
+				    			if(size>=0){			    				
+				    				offset+=size;
+				    			}else{
+				    				breakflag=true;
+				    				break;
+				    			}
+				    			
+				    			if(!breakflag && !thread.isExit() && SettingAndStatus.avrecording){
+									end=(new Date()).getTime();
+									if(20>(end-begin)){
+										Thread.sleep(20-end+begin);
+									}
+									begin=end;
+				    			}
+							}catch(SocketTimeoutException e){
+								if(!SettingAndStatus.avrecording){
+									breakflag=true;
+								}
+							}
+		    			}
+						/*写文件并发送数据*/
+						if(!breakflag && !thread.isExit()){
+							int frmheadlen=H264Stream.getFrameHeadLength();
+//							if(null!=vrecorder){
+//								vrecorder.write(buffer, frmheadlen, payloadlen - frmheadlen);
+//							}
+		    				if(SettingAndStatus.VcaStatus.LOGINED==SettingAndStatus.vcaStatus.status &&
+		    					SettingAndStatus.phoneDataSending){
+		    					H264Stream.writeFrameHead(buffer,0,length,timestamp,0x23,
+		    						payloadlen-frmheadlen,idr?1:0,frameno);
+		    					if(!Vca.putVideoData(buffer,payloadlen,1000)){
+		    						Log.v(TAG,"发送视频数据异常!");
+		    					}
+		    				}
+		    				frameno++;
+		    			}
+					}	
+				}else{
+					/*不支持的视频数据不发送*/
+					begin=(new Date()).getTime();
+					while(!breakflag && !thread.isExit()){
+						try{
+							size=in.read(buffer,0,length);frameno=0;
+							if(size>=0){
+							}else{
+								breakflag=true;
+								break;
+			    			}
+							if(!breakflag && !thread.isExit() && SettingAndStatus.avrecording){
+								end=(new Date()).getTime();
+								if(20>(end-begin)){
+									Thread.sleep(20-end+begin);
+								}
+								begin=end;
+			    			}	
+						}catch(SocketTimeoutException e){
+							if(!SettingAndStatus.avrecording){
+								breakflag=true;
+							}
+						}
+					}
+				}
+			}
+			
+			if(thread.isExit() || breakflag){
+				//关闭音频线程
+				stopAudioUpload();
+				DispatchHandler.submitShortNotice("提示：录像结束!");
+				in.close();
+			}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+	}
 	/*视流分析、存储、发送线程*/
 	private static void videoRecAndTx(ThreadExt thread){
     	Log.v(TAG,"视频流分析、存储、发送线程已运行!");
@@ -193,10 +447,12 @@ public class DataProc {
     	BufferedInputStream in=null;
     	SDFileWriter arecorder=null;
     	SDFileWriter vrecorder=null;
+    	InputStream socketIn=null;
     	int  length=1024*1024;//和Vca.Param中的videofrmlen保持一致;
     	byte buffer[]=new byte[length];
+    	byte nationbuf[]=new byte[length];
     	byte head[]=new byte[5];
-    	int size,offset,payloadlen,frameno;
+    	int size,offset,payloadlen,frameno,mySize;
     	boolean breakflag=true;
     	long begin,end;
 
@@ -215,12 +471,12 @@ public class DataProc {
 		    			Log.v(TAG,"与客户端建立了链接！");
 		    			client.setReceiveBufferSize(1024*1024);
 		    			client.setSoTimeout(SettingAndStatus.settings.timeout);
-		    			in=new BufferedInputStream(client.getInputStream());		    			
+		    			socketIn=client.getInputStream();
+		    			in=new BufferedInputStream(socketIn);
 		       			break;
 		    		}catch(SocketTimeoutException e){
 		    		}
 	    		}
-	        	
 	    		/*准备录像文件*/
 				if(!thread.isExit()){
 					if(SettingAndStatus.settings.avrecord){
@@ -261,6 +517,7 @@ public class DataProc {
 					while(!breakflag && !thread.isExit() && offset<52){
 						try{
 							size=in.read(buffer,offset,52-offset);
+							
 							if(size>=0){
 								offset+=size;
 							}else{
@@ -271,7 +528,11 @@ public class DataProc {
 								breakflag=true;
 							}
 						}
-					}				
+					}		
+					for(int i =0;i<52;i++){
+								nationbuf[i]=buffer[i];
+							}
+					
 				}
 	       	
 				while(!breakflag && !thread.isExit()){
@@ -292,11 +553,15 @@ public class DataProc {
 								}
 							}
 						}	
+						for(int i=0;i<5;i++){
+							nationbuf[52+i]=head[i];
+						} 
 						
 						if(!breakflag && !thread.isExit())
 						{
 							/*检查数据是否异常*/
 							payloadlen=Utils.byte4ToInt(head,0);
+							mySize=payloadlen;
 							if(0!=(head[4]&0x80) || (head[4]&0x1F)<1 || (head[4]&0x1F)>13 || payloadlen<=0 || 
 								payloadlen>H264Stream.getMaxFrameLength(SettingAndStatus.settings.videosize)){
 								breakflag=true;
@@ -320,7 +585,6 @@ public class DataProc {
 								offset+=H264Stream.writeHead(buffer,offset,length-offset);
 								offset+=H264Stream.writePPS(buffer,offset,length-offset);
 				    		}
-				    		
 							/*读取载荷数据并适当延时*/
 							begin=(new Date()).getTime();
 							offset+=H264Stream.writeHead(buffer,offset,length-offset);
@@ -328,13 +592,14 @@ public class DataProc {
 							buffer[offset++]=head[4];//NAL头
 							while(!breakflag && !thread.isExit() && offset<payloadlen){    	 
 								try{
-				    	    		size=in.read(buffer,offset,payloadlen-offset);
+									size=in.read(buffer,offset,payloadlen-offset);
 					    			if(size>=0){			    				
 					    				offset+=size;
 					    			}else{
 					    				breakflag=true;
 					    				break;
 					    			}
+					    			
 					    			if(!breakflag && !thread.isExit() && SettingAndStatus.avrecording){
 										end=(new Date()).getTime();
 										if(20>(end-begin)){
@@ -348,13 +613,18 @@ public class DataProc {
 									}
 								}
 			    			}
-							
+							for(int i=0;i<mySize;i++){
+								nationbuf[57+i]=buffer[46+i];
+							}
 							/*写文件并发送数据*/
 							if(!breakflag && !thread.isExit()){
 								int frmheadlen=H264Stream.getFrameHeadLength();
 			    				if(null!=vrecorder){
-			    					vrecorder.write(buffer,frmheadlen,payloadlen-frmheadlen);
+			    					vrecorder.write(nationbuf,0,mySize+57);
 			    				}
+//								if(null!=vrecorder){
+//									vrecorder.write(buffer, frmheadlen, payloadlen - frmheadlen);
+//								}
 			    				if(SettingAndStatus.VcaStatus.LOGINED==SettingAndStatus.vcaStatus.status &&
 			    					SettingAndStatus.phoneDataSending){
 			    					H264Stream.writeFrameHead(buffer,0,length,timestamp,0x23,
@@ -511,17 +781,14 @@ public class DataProc {
 	/* 视频数据接收、播放线程 */
 	private static void videoRxAndPlay(ThreadExt thread) {
 		Log.v(TAG, "视频数据获取、播放线程已启动!");
-
 		int bufsize = 1024 * 1024;// 和Vca.Param中的videofrmlen保持一致;
 		int[] buffer = new int[bufsize];
 		SurfaceHolder holder = null;
 		int oldwidth = 0, oldheight = 0, framebufcnt = 0;
-
 		/*
 		 * SDFileWriter yuvrecorder=utils.new SDFileWriter();
 		 * if(!yuvrecorder.open("LiveCams","dec.rgb")){ yuvrecorder=null; }
 		 */
-
 		Date begin = new Date();
 		while (!thread.isExit()) {
 			int size = Vca.getVideoData2(buffer, 1000);
@@ -605,7 +872,6 @@ public class DataProc {
 		byte[] buffer = new byte[1024 * 8];// 和Vca.Param中的audiofrmlen保持一致;
 		int size, datatype, datalen;
 		// audioTrack.getNativeOutputSampleRate(AudioManager.STREAM_VOICE_CALL);
-		Log.e("audio", "play");
 		/* 启动音频播放 */
 		audioTrack.play();
 
@@ -636,6 +902,7 @@ public class DataProc {
 						begin = end;
 						refreshProgressBar(1, Vca.getAudioBitrate());
 					}
+					
 				}
 			}
 		}

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"   
 	android:layout_height="wrap_content"   
-	android:layout_width="fill_parent">
+	android:layout_width="fill_parent"
+	android:background="@drawable/mainbg2">
 	<TextView   
 		android:id="@+id/appName"
         android:textSize="30dp"
@@ -24,4 +25,47 @@
 	    android:stretchMode="columnWidth"
 	    android:gravity="center" 
 	/>
+	<RelativeLayout
+        android:layout_width="100dip"
+        android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+         >
+        <ImageButton
+            android:id="@+id/ib_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/icon_home" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="180dip"
+        android:layout_height="90dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/level2"
+        >
+        <ImageButton
+            android:id="@+id/ib_setting"
+            android:layout_width="35px"
+            android:layout_height="35px"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dip"
+            android:background="@drawable/v5_2_1_desktop_list_settings_blue" />
+        <ImageButton
+            android:id="@+id/ib_login"
+            android:layout_width="35px"
+            android:layout_height="35px"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="6dip"
+            android:background="@drawable/v5_2_1_desktop_list_friends_blue" />
+        <ImageButton
+            android:id="@+id/ib_quit"
+            android:layout_width="35px"
+            android:layout_height="35px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dip"
+            android:background="@drawable/v5_2_1_desktop_list_log_out_blue" />
+    </RelativeLayout>
 </RelativeLayout>  

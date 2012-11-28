@@ -1,7 +1,5 @@
 package com.viga.engine;
 
-import android.util.Log;
-
 import com.viga.utils.Utils;
 
 public class H264Stream {				// SIZE	    HTCC510E  MIONEPLUS
@@ -65,7 +63,6 @@ public class H264Stream {				// SIZE	    HTCC510E  MIONEPLUS
 			if(SettingAndStatus.isHtcC510e()){
 				sps=sps4cif1;
 			}else if(SettingAndStatus.isMiOnePlus()){
-				Log.v("fuckme", "插入SPS+PPS ");
 				sps=sps4cif2;
 			}else{ 
 				sps=sps4cif2;
@@ -110,7 +107,6 @@ public class H264Stream {				// SIZE	    HTCC510E  MIONEPLUS
 		if(SettingAndStatus.isHtcC510e()){
 			pps=pps1;
 		}else if(SettingAndStatus.isMiOnePlus()){
-			Log.v("fuckme", "插入SPS+PPS ");
 			pps=pps2;
 		}else{ 
 			pps=pps2;

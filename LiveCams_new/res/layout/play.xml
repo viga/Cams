@@ -15,29 +15,40 @@
     <TextView
         android:id="@+id/titleTv"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32px"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:gravity="center"
         android:text=""
-        android:textColor="#00FF00" />
+        android:textColor="#ffFFff" 
+        android:background="@drawable/videoplay_itembg"/>
+	<RelativeLayout 
+	    android:id="@+id/RL_BG"
+	    android:layout_width="fill_parent"
+	    android:layout_height="32px"
+	    android:layout_alignParentBottom="true"
+	    android:background="@drawable/videoplay_itembg" >
+    <TextView
+        android:id="@+id/audioTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="right"
+        android:text="@string/audiostat"
+        android:textColor="#ffFFff" 
+        />
 
     <TextView
         android:id="@+id/videoTv"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:gravity="left"
         android:text="@string/videostat"
-        android:textColor="#00FF00" />
-    
-    <TextView
-        android:id="@+id/audioTv"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="right"
-        android:text="@string/audiostat"
-        android:textColor="#00FF00" />
+        android:textColor="#ffffff" />
+
+	</RelativeLayout>
 
 </RelativeLayout>
