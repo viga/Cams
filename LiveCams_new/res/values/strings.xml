@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="appname">图传系统手机终端</string>
+    <string name="appname">手机图传系统</string>
     <string name="setting">参数设置</string>
     <string name="login">登录服务</string>
     <string name="connecting">连接中…</string>
@@ -38,6 +38,7 @@
     <string name="cancel">取  消</string>
     <string name="audiostat">音频：0kbps</string>
     <string name="videostat">视频：0kbps</string>
+    <string name="pleaselogin">请登录服务</string>
 
     <string-array name="vsz4sp">
         <item>QCIF(176x144)</item>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/playRl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+      <SurfaceView android:id="@+id/local_videoSv" 
+          android:layout_width="fill_parent" 
+          android:layout_height="fill_parent" 
+          android:layout_alignParentLeft="true" 
+          android:layout_alignParentTop="true" />
+      <ImageButton 
+          android:id="@+id/local_imageButton"
+          android:layout_width="80dp" 
+          android:layout_height="80dp" 
+          android:layout_centerInParent="true"
+          android:src="@drawable/local_replay"
+          android:visibility="gone"
+          />
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="fill_parent"
+        android:layout_height="32px"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#ffFFff" 
+        android:background="@drawable/videoplay_itembg"/>
+	<RelativeLayout 
+	    android:id="@+id/RL_BG"
+	    android:layout_width="fill_parent"
+	    android:layout_height="32px"
+	    android:layout_alignParentBottom="true"
+	    android:background="@drawable/videoplay_itembg" >
+
+	</RelativeLayout>
+
+	<ProgressBar
+	    android:id="@+id/localprogressBar"
+	    style="?android:attr/progressBarStyleHorizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="12dp"
+	    android:layout_above="@+id/RL_BG"
+	  />
+
+</RelativeLayout>

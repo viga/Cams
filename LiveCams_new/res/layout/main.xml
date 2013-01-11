@@ -2,24 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"   
 	android:layout_height="wrap_content"   
 	android:layout_width="fill_parent"
-	android:background="@drawable/mainbg2">
+	android:background="@drawable/mainbg">
+	
 	<TextView   
 		android:id="@+id/appName"
         android:textSize="30dp"
 		android:layout_width="wrap_content"   
-		android:layout_height="wrap_content"   
+		android:layout_height="wrap_content"  
 		android:layout_centerHorizontal="true"   
 		android:text="@string/appname"
 		android:paddingTop="15dip"
 		android:paddingBottom="15dip"
+		android:textColor="@android:color/primary_text_dark_nodisable"
 	/>  
+	<ImageView android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true" 
+	    android:layout_toLeftOf="@id/appName"
+	    android:src="@drawable/logo"
+	   />
 	<GridView xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:id="@+id/mainGridView"
 	    android:layout_below="@id/appName"   
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:numColumns="auto_fit"
-	    android:verticalSpacing="20dp"
+	    android:verticalSpacing="10dp"
 	    android:horizontalSpacing="20dp"
 	    android:columnWidth="90dp"
 	    android:stretchMode="columnWidth"
