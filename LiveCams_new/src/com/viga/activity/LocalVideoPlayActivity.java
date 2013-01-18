@@ -56,8 +56,8 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
 		arg.ip[0] = Utils.ipaddrToInt("127.0.0.1");
 		short port = (short) Vca.control(Vca.OPID_GETRCVPORT, arg);
 		arg.port[0] = port;
-		int i = Vca.control(Vca.OPID_ADDDST, arg);
-		//Log.i(TAG1, arg.ip[0] + "/" + port +"/"+i);
+	    Vca.control(Vca.OPID_ADDDST, arg);
+	
 		DispatchHandler.setHandler(handler);
 		
 		_intent=this.getIntent();

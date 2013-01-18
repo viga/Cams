@@ -296,13 +296,8 @@ public class DataProc {
 							size += Utils.intToByte4(0x00000030, buffer, size);
 							size += Utils.intToByte4(bufsize, buffer, size);
 							size += Utils.intToByte4(frameno++, buffer, size);
-						}
-						if (SettingAndStatus.VcaStatus.LOGINED == SettingAndStatus.vcaStatus.status
-								&& SettingAndStatus.phoneDataSending) {
-							if (!Vca.putAudioData(buffer, bufsize + headlen, 1000)) {
-								Log.v(TAG, "发送音频数据异常!");
-							}
-						}
+						}						
+							Vca.putAudioData(buffer, bufsize + headlen, 1000);					
 						timestamp = new Date().getTime();
 						offset = headlen;
 					}
@@ -373,12 +368,13 @@ public class DataProc {
 								}
 								if(!b){
 						           refreshNationUpLoadPorgressBar((size+5),fileLength);
-						
+						           Thread.sleep(30);//控制视频上传速度
 								}else{
 									refreshlocalUpLoadPorgressBar((size+5),fileLength);	
+								   Thread.sleep(55);//控制本地视频上传速度
 								}
 						
-						Thread.sleep(30);//控制视频上传速度
+						
 							} catch (SocketTimeoutException e) {
 								if (!SettingAndStatus.avrecording) {
 									breakflag = true;
@@ -832,7 +828,7 @@ public class DataProc {
 					AudioFormat.ENCODING_PCM_16BIT, bufsize, AudioTrack.MODE_STREAM);
 		} else {
 			audioTrack = new AudioTrack(
-					AudioManager.STREAM_MUSIC,// ********
+					AudioManager.STREAM_MUSIC,
 					SettingAndStatus.settings.osplrt, AudioFormat.CHANNEL_CONFIGURATION_MONO,
 					AudioFormat.ENCODING_PCM_16BIT, bufsize, AudioTrack.MODE_STREAM);
 		}

@@ -70,6 +70,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
 	private TextView filepr;
 	private static boolean ifVedioFolder;
 	private static boolean localVideoPlayer=false;
+	private Intent _intent;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -102,19 +103,12 @@ public class NationScanActivity extends Activity implements OnClickListener {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_nation_scan);
         MyApplication.getInstance().addActivity(NationScanActivity.this);
-        Intent intenti=this.getIntent();
-        requestCode=intenti.getIntExtra("requestcode",0);
-        currentStatus=intenti.getIntExtra("currentStatus", 0);
+        _intent=this.getIntent();
+        requestCode=_intent.getIntExtra("requestcode",0);
+        currentStatus=_intent.getIntExtra("currentStatus", 0);
         DispatchHandler.setHandler(handler);
-        lv_nation_files=(ListView) findViewById(R.id.lv_nation);
-        tv_nation_photo=(TextView) findViewById(R.id.tv_nation_photo);
-        tv_nation_video=(TextView) findViewById(R.id.tv_nation_video);
-        tv_nation_photo.setOnClickListener(this);
-        tv_nation_video.setOnClickListener(this);
-        tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg2));
-		tv_nation_photo.setClickable(false);
-        mlistFiles("photo");
-        
+		initUI();
+        mlistFiles("photo");    
         mysp=this.getSharedPreferences("fileupload", Context.MODE_PRIVATE);
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {    
         	}else {    
@@ -130,6 +124,18 @@ public class NationScanActivity extends Activity implements OnClickListener {
 				dismissPopUpwindow();
 			}
 		});
+    }
+    
+    private void initUI(){
+    	lv_nation_files=(ListView) findViewById(R.id.lv_nation);
+        tv_nation_photo=(TextView) findViewById(R.id.tv_nation_photo);
+        tv_nation_video=(TextView) findViewById(R.id.tv_nation_video);
+        tv_nation_photo.setOnClickListener(this);
+        tv_nation_video.setOnClickListener(this);
+        tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg2));
+		tv_nation_photo.setClickable(false);
+    	
+    	
     }
     //上传完成通知背负设备 
     private void switchVideo(){
@@ -185,10 +191,8 @@ public class NationScanActivity extends Activity implements OnClickListener {
 					if(SettingAndStatus.vcaStatus.status==SettingAndStatus.VcaStatus.INIT||SettingAndStatus.vcaStatus.status==SettingAndStatus.VcaStatus.STOPPING) {
 				     LiveCamsActivity lv=(LiveCamsActivity) LiveCamsActivity.getCon();
 				     lv.openAndStartVca(null); 
-				    // Log.i(TAG, "isopenAndStartVca");
 				     localVideoPlayer=true;
-					}
-					
+					}	
 					LocaluploadVideoToS(thisFile);				
 					
 				
@@ -271,9 +275,8 @@ public class NationScanActivity extends Activity implements OnClickListener {
 	}
 	//本地播放视频
 	private void LocaluploadVideoToS(final File thisFile){	
-		Intent intent = new Intent(NationScanActivity.this, LocalVideoPlayActivity.class); 
-		int totalLen=Integer.parseInt(thisFile.length()+"");	
-		intent.putExtra("totalLen",totalLen);
+		Intent intent = new Intent(NationScanActivity.this, LocalVideoPlayActivity.class); 	
+		intent.putExtra("totalLen",Integer.parseInt(thisFile.length()+""));
 		startActivityForResult(intent, 7);
 		DataProc.startLocalNationVideoUpload(thisFile,0,null,true);
 

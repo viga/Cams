@@ -83,8 +83,6 @@ public class LiveCamsActivity extends Activity {
 		if (SettingAndStatus.settings.autologin) {
 			openAndStartVca(null);
 		}
-		
-	
 	}
 
 	private void openBlueTooth() {
@@ -937,7 +935,7 @@ public class LiveCamsActivity extends Activity {
 		// 浏览LiveCams文件夹中的文件
 		Intent intent = new Intent(LiveCamsActivity.this, NationScanActivity.class);
 		int currentStatus=SettingAndStatus.vcaStatus.status;
-		Log.i(TAG, "currentStatus="+currentStatus);
+		//Log.i(TAG, "currentStatus="+currentStatus);
 		intent.putExtra("requestcode", 6);
 	    intent.putExtra("currentStatus", currentStatus);
 		startActivityForResult(intent, 6);
