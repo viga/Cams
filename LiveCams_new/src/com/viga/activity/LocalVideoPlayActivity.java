@@ -29,15 +29,17 @@ import com.viga.engine.SettingAndStatus;
 import com.viga.utils.Utils;
 
 public class LocalVideoPlayActivity extends Activity implements OnClickListener {
-	private final static String TAG1 = "LIUWANGSHU";
+	private final static int RESTART = 1;
 	private SurfaceView surfaceView = null;
 	private SurfaceHolder surfaceHolder = null;
 	private PowerManager.WakeLock mw;
 	private ProgressBar _progressBar;
-	private static int refreshSize = 0;
+	private static int refreshSize = 4000;
     private ImageButton _imageButton;
     private Intent _intent;
     private int totalLen;
+    private int position;
+    private Boolean begin=true;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,6 +65,7 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
 		_intent=this.getIntent();
 		Bundle bundle=_intent.getExtras();
 		totalLen=(Integer) bundle.get("totalLen");
+		position=(Integer) bundle.get("position");
 		initUI();   
 	}
 
@@ -80,9 +83,15 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case 212:
-				refreshSize += msg.arg1;
 				int total = msg.arg2;
-				
+				if(begin){
+				int size=(int) (total*0.03);//首次进入进度条的计算矫正误差
+				refreshSize=size+ msg.arg1;
+				begin=false;
+				}else{
+					refreshSize+=msg.arg1;
+					
+				}
 				if (refreshSize > total || refreshSize == total) {
 					refreshSize = 0;
 					_imageButton.setVisibility(View.VISIBLE);
@@ -150,6 +159,10 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.local_imageButton:
+			_intent=new Intent(LocalVideoPlayActivity.this,NationScanActivity.class);
+			_intent.putExtra("position", position);
+		     setResult(RESTART, _intent);
+			this.finish();
 			
 			break;
 

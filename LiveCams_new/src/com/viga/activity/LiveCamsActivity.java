@@ -258,12 +258,13 @@ public class LiveCamsActivity extends Activity {
 				"ItemImage", "ItemText" }, new int[] { R.id.ItemImage, R.id.ItemText });
 		mainGridView.setAdapter(gridViewAdapter);
 		mainGridView.setOnItemClickListener(new GvItemClickListener());
-
+        /*
 		ib_home = (ImageButton) findViewById(R.id.ib_home);
 		ib_setting = (ImageButton) findViewById(R.id.ib_setting);
 		ib_login = (ImageButton) findViewById(R.id.ib_login);
 		ib_quit = (ImageButton) findViewById(R.id.ib_quit);
 		level2 = (RelativeLayout) findViewById(R.id.level2);
+	
 		com.viga.view.MyAnimation.startAnimationOUT(level2, 500, 500);
 		isLevel2Show = false;
 		ib_home.setOnClickListener(new OnClickListener() {
@@ -305,6 +306,7 @@ public class LiveCamsActivity extends Activity {
 				quitApp();
 			}
 		});
+			*/
 
 	}
 

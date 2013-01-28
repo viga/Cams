@@ -61,6 +61,7 @@ public class NationListAdapter extends BaseAdapter{
 			tv_infos.setText("上传成功");
 		}else{
 			tv_infos.setText("未上传");
+			
 		}
 		tv_size=(TextView) view.findViewById(R.id.tv_lvitem_filesize);
 		tv_size.setText(Utils.FormetFileSize(filelist.get(position).length()));

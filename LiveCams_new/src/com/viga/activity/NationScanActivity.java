@@ -54,6 +54,7 @@ import com.viga.engine.SettingAndStatus;
 import com.viga.utils.Utils;
 public class NationScanActivity extends Activity implements OnClickListener {
 	private final static String TAG = "NationScanActivity";
+	private final static int RESTART = 1;
 	private TextView tv_nation_video,tv_nation_photo;
 	private ListView lv_nation_files;
 	private static NationListAdapter nationadapter;
@@ -71,6 +72,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
 	private static boolean ifVedioFolder;
 	private static boolean localVideoPlayer=false;
 	private Intent _intent;
+    private int _position;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -132,7 +134,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
         tv_nation_video=(TextView) findViewById(R.id.tv_nation_video);
         tv_nation_photo.setOnClickListener(this);
         tv_nation_video.setOnClickListener(this);
-        tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg2));
+        //tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg2));
 		tv_nation_photo.setClickable(false);
     	
     	
@@ -156,29 +158,30 @@ public class NationScanActivity extends Activity implements OnClickListener {
 		}
 		if(filelist.size()!=0){
 		thisFile=filelist.get(positon);
+		_position=positon;
 		}else{
 			thisFile=null;
 		}
 		switch (v.getId()) {
 		case R.id.tv_nation_photo://显示照片文件
 			if(tv_nation_photo.isClickable()){
-			tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg2));
+			tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_delwords_sel));
 			tv_nation_photo.setClickable(false);
-			tv_nation_photo.setTextColor(Color.WHITE);
-			tv_nation_video.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg1));
+			tv_nation_photo.setTextColor(Color.BLACK);
+			tv_nation_video.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_delwords_nor));
 			tv_nation_video.setClickable(true);
-			tv_nation_video.setTextColor(Color.BLACK);
+			tv_nation_video.setTextColor(Color.WHITE);
 			mlistFiles("photo");  
 			}
 			break;
 		case R.id.tv_nation_video://显示视频文件
 			if(tv_nation_video.isClickable()){
-				tv_nation_video.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg2));
+				tv_nation_video.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_delwords_sel));
 				tv_nation_video.setClickable(false);
-				tv_nation_video.setTextColor(Color.WHITE);
-				tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg1));
+				tv_nation_video.setTextColor(Color.BLACK);
+				tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_delwords_nor));
 				tv_nation_photo.setClickable(true);
-				tv_nation_photo.setTextColor(Color.BLACK);
+				tv_nation_photo.setTextColor(Color.WHITE);
 				mlistFiles("video");
 				}
 			break;
@@ -277,10 +280,29 @@ public class NationScanActivity extends Activity implements OnClickListener {
 	private void LocaluploadVideoToS(final File thisFile){	
 		Intent intent = new Intent(NationScanActivity.this, LocalVideoPlayActivity.class); 	
 		intent.putExtra("totalLen",Integer.parseInt(thisFile.length()+""));
+		intent.putExtra("position", _position);
 		startActivityForResult(intent, 7);
 		DataProc.startLocalNationVideoUpload(thisFile,0,null,true);
 
 	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (resultCode) {
+		case RESTART:
+			//Log.i(TAG, resultCode+"");
+			Bundle _bundle=data.getExtras();
+			int position=(Integer) _bundle.get("position");		
+			File file=filelist.get(position);
+			LocaluploadVideoToS(file);
+			
+			break;
+
+		default:
+			break;
+		}	
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
 	private void mlistFiles(String filename) {
 		lv_nation_files.removeAllViewsInLayout();
 		files=new File(path+"/LiveCams/"+filename);
@@ -354,7 +376,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
 		ll_delete.setTag(position);
 		ll_upload.setTag(position);
 		LinearLayout ll_pop = (LinearLayout) v.findViewById(R.id.ll_nation_pop);
-		mPop=new PopupWindow(v, 320, 90);
+		mPop=new PopupWindow(v, 320, 85);
 		Drawable background = getResources().getDrawable(R.drawable.local_popup_bg);
 		mPop.setBackgroundDrawable(background);
 		mPop.showAtLocation(view, Gravity.LEFT | Gravity.TOP, i, j);

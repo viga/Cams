@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"   
 	android:layout_height="wrap_content"   
 	android:layout_width="fill_parent"
-	android:background="@drawable/mainbg">
+	android:background="@drawable/main">
 	
 	<TextView   
 		android:id="@+id/appName"
@@ -33,6 +33,7 @@
 	    android:stretchMode="columnWidth"
 	    android:gravity="center" 
 	/>
+	<!--  
 	<RelativeLayout
         android:layout_width="100dip"
         android:layout_height="50dip"
@@ -43,9 +44,11 @@
             android:id="@+id/ib_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@drawable/icon_home" />
+            android:layout_centerInParent="true" 
+            android:background="@drawable/icon_home"/>
     </RelativeLayout>
+    -->
+    <!-- 
     <RelativeLayout
         android:layout_width="180dip"
         android:layout_height="90dip"
@@ -76,4 +79,5 @@
             android:layout_margin="10dip"
             android:background="@drawable/v5_2_1_desktop_list_log_out_blue" />
     </RelativeLayout>
+     -->
 </RelativeLayout>  

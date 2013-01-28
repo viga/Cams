@@ -2,15 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"   
 	android:layout_height="150px"   
 	android:layout_width="fill_parent"
-	android:background="#38000000">  
+	
+	>  
+	<!-- android:background="#38000000" -->
 	<ImageView   
 		android:id="@+id/ItemImage"   
 		android:layout_height="wrap_content"   
 		android:layout_width="wrap_content"   
 		android:layout_centerInParent="true"
-		android:src="@drawable/record"
 		android:contentDescription="@string/record"
-		 /> 
+			android:src="@drawable/record" 
+		 />
+	
+		 
 	<TextView   
 		android:id="@+id/ItemText"
 		android:layout_width="wrap_content"   
