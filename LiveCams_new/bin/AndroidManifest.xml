@@ -45,7 +45,8 @@
             android:name=".LoginActivity"
             android:label="@string/logintitle"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Dialog" />
+            android:theme="@android:style/Theme.Dialog"
+             />
         <activity android:name=".SnapPicActivity" />
         <activity android:name=".VideoRecordActivity" />
         <activity
@@ -54,7 +55,8 @@
         
         <activity
             android:name=".LocalVideoPlayActivity"
-            android:configChanges="orientation|keyboardHidden" />
+            android:configChanges="orientation|keyboardHidden" 
+          />
         
         <activity
             android:name=".NationScanActivity"
@@ -64,7 +66,10 @@
         <activity
             android:name=".SettingDetailActivity"
             android:label="@string/title_activity_setting_detail" 
-            android:windowSoftInputMode="stateUnchanged">
+            android:windowSoftInputMode="stateUnchanged"
+            android:theme="@android:style/Theme.Dialog"            
+            >
+            
         </activity>
     </application>
 

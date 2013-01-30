@@ -3,6 +3,7 @@ package com.viga.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.opengl.Visibility;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
     private int totalLen;
     private int position;
     private Boolean begin=true;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,17 +51,20 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setContentView(R.layout.local_play);
 		
+		
+		
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		mw = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "myLock");
 		mw.acquire();
 		DataProc.startRxAndPlay(0, 8, null, null);
 		Vca vca = new Vca();
 		Vca.Arg arg = vca.new Arg(1, -1);
+		arg.setWxH(SettingAndStatus.displayheight-280,SettingAndStatus.displaywidth-140);
 		arg.ip[0] = Utils.ipaddrToInt("127.0.0.1");
 		short port = (short) Vca.control(Vca.OPID_GETRCVPORT, arg);
 		arg.port[0] = port;
 	    Vca.control(Vca.OPID_ADDDST, arg);
-	
+	    Vca.control(Vca.OPID_CHGDESTSIZE,arg);
 		DispatchHandler.setHandler(handler);
 		
 		_intent=this.getIntent();
@@ -71,7 +76,9 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
 
 	private void initUI() {
 		surfaceView = (SurfaceView) findViewById(R.id.local_videoSv);
+		
 		surfaceHolder = surfaceView.getHolder();
+		
 		surfaceHolder.addCallback(surfaceCallback);
 		_progressBar = (ProgressBar) this.findViewById(R.id.localprogressBar);
 		_progressBar.setMax(totalLen);

@@ -14,6 +14,7 @@ import java.util.Date;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.media.AudioFormat;
 import android.media.AudioManager;
@@ -775,6 +776,8 @@ public class DataProc {
 						synchronized (holder) {
 							int width = Utils.intSwapByte(buffer[1]);
 							int height = Utils.intSwapByte(buffer[2]);
+							
+							
 							Bitmap bmp = Bitmap.createBitmap(buffer, 2, width, width, height,
 									Bitmap.Config.RGB_565);
 							Canvas cv = holder.lockCanvas();
@@ -790,8 +793,13 @@ public class DataProc {
 								cv.drawColor(Color.BLACK);
 								framebufcnt--;
 							}
-							cv.drawBitmap(bmp, (SettingAndStatus.displayheight - width) / 2,
-									(SettingAndStatus.displaywidth - height) / 2, pt);
+							
+							
+							Matrix mx=new Matrix();
+							mx.setRotate(90);
+							Bitmap newbmp=Bitmap.createBitmap(bmp, 0, 0, width, height, mx, false);
+							cv.drawBitmap(newbmp, (SettingAndStatus.displayheight - width) / 2+45,
+									(SettingAndStatus.displaywidth - height) / 2-45, pt);
 							holder.unlockCanvasAndPost(cv);
 						
 						}

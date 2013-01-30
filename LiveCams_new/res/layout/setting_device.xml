@@ -10,6 +10,7 @@
 	    android:layout_alignParentTop="true"
 	    android:textSize="15sp"
 	    android:text="修改设备类型和ID号："
+	    android:textColor="@android:color/black"
 	    android:gravity="center_horizontal"
 	    />
     <TextView
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"
         android:text="@string/devtype" >
         <requestFocus />
 	</TextView>
@@ -38,6 +40,7 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/devTypeEt"
         android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"
         android:text="@string/devid" />
 
     <EditText
@@ -57,6 +60,7 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/devIdEt"
         android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"
         android:text="" />
     
     <Button

@@ -6,8 +6,15 @@ import java.net.Socket;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.hardware.Camera;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,9 +32,11 @@ import com.vdsp.DispatchHandler;
 import com.viga.engine.H264Stream;
 import com.viga.engine.MyApplication;
 import com.viga.engine.SettingAndStatus;
+import com.viga.utils.Utils;
 
 public class VideoRecordActivity extends Activity {
 	private final static String 	TAG="LIVECAMS";
+	private final static String 	TAG1="LIUWANGSHU";
 	private SurfaceView 			surfaceView=null;  
 	private SurfaceHolder 			surfaceHolder=null;  
 	private Camera 					camera=null;  
@@ -36,6 +45,7 @@ public class VideoRecordActivity extends Activity {
 	private ParcelFileDescriptor 	sockfd=null;
 	private Handler					oldHandler=null;
 	private int 					requestCode;
+    private SharedPreferences _sharedPreferences;
 	
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -50,9 +60,18 @@ public class VideoRecordActivity extends Activity {
         requestCode=intent.getIntExtra("requestcode",0);
         oldHandler=DispatchHandler.setHandler(handler); 
         setupSurfaceView();
+        int i=this.getResources().getConfiguration().orientation;
+    	Log.i(TAG1, i+"");
+    	
     }
 
     @Override
+	protected void onResume() {
+    	
+		super.onResume();
+	}
+
+	@Override
     public void onStop(){
     	if(DispatchHandler.isCurrent(handler)){
     		DispatchHandler.setHandler(oldHandler);
@@ -75,6 +94,7 @@ public class VideoRecordActivity extends Activity {
     	if(actionCode==MotionEvent.ACTION_DOWN && null!=camera){ 
     		if(!SettingAndStatus.avrecording){
     			SettingAndStatus.avrecording=true;
+    			
 	    		try{
 	    			//与数据接收线程建立TCP链接	            	
 	    			socket=new Socket("localhost",SettingAndStatus.settings.mdaport);
@@ -89,6 +109,7 @@ public class VideoRecordActivity extends Activity {
 	    			
 	    			//初始化录像机
 	    			int width,height;
+	    			
 	    			mediaRecorder=new MediaRecorder();
 	    			mediaRecorder.setCamera(camera);
 	    			mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
@@ -111,6 +132,9 @@ public class VideoRecordActivity extends Activity {
 		    		//启动录像机
 	    			mediaRecorder.prepare();
 	            	mediaRecorder.start();
+	            	
+	            	
+	            	
 	            	Log.v(TAG,"启动了MediaRecorder！");
 	    		}catch(IllegalStateException e){
 	    			stopAvRecorder();
@@ -191,7 +215,7 @@ public class VideoRecordActivity extends Activity {
     		}
     	}
     };
-    
+   
     /*摄像头操作*/
     private SurfaceHolder.Callback surfaceCallback=new SurfaceHolder.Callback(){
     	public void surfaceCreated(SurfaceHolder holder){  

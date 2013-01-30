@@ -9,6 +9,7 @@
 	    android:layout_alignParentTop="true"
 	    android:textSize="15sp"
 	    android:text="录像参数设置"
+	    android:textColor="@android:color/black"
 	    android:gravity="center_horizontal"
 	    />
     <TextView
@@ -18,7 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="@string/videosize" />
+        android:text="@string/videosize"
+        android:textColor="@android:color/black" />
+    
 
     <Spinner
         android:id="@+id/videoSizeSp"
@@ -35,7 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/videoSizeSp"
-        android:text="@string/vframerate" />
+        android:text="@string/vframerate" 
+        android:textColor="@android:color/black"/>
 
     <EditText
         android:id="@+id/vframeRateEt"
@@ -52,7 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/vframeRateEt"
-        android:text="@string/vbitrate" />
+        android:text="@string/vbitrate" 
+        android:textColor="@android:color/black"/>
 
     <EditText
         android:id="@+id/vbitRateEt"
@@ -69,7 +74,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/vbitRateEt"
-        android:text="" />
+        android:text="" 
+        android:textColor="@android:color/black"/>
 
     <Button
         android:id="@+id/confirmBt"
@@ -85,7 +91,8 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/confirmBt"
         android:layout_centerHorizontal="true"
-        android:text="" />
+        android:text="" 
+        android:textColor="@android:color/black"/>
     
     <Button
         android:id="@+id/cancelBt"

@@ -9,8 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/srvipaddr" >
-        <requestFocus />
+        android:text="@string/srvipaddr"
+        android:textColor="@android:color/black" >
+        
 	</TextView>
 
     <EditText
@@ -28,7 +29,8 @@
         android:layout_height="wrap_content"        
         android:layout_below="@+id/srvIpaddrEt"
         android:layout_centerHorizontal="true"
-        android:text="@string/srvport" />
+        android:text="@string/srvport"
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/srvPortEt"
@@ -45,7 +47,8 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/srvPortEt"
         android:layout_centerHorizontal="true"
-        android:text="@string/devid" />
+        android:text="@string/devid"
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/devIdEt"
@@ -62,7 +65,8 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/devIdEt"
         android:layout_centerHorizontal="true"
-        android:text="" />
+        android:text="" 
+         android:textColor="@android:color/black"/>
     
     <Button
         android:id="@+id/confirmBt"
@@ -70,7 +74,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rsvdTv"
-        android:text="" />
+        android:text=""
+         android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/rsvdTv2"
@@ -78,7 +83,8 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/confirmBt"
         android:layout_centerHorizontal="true"
-        android:text="" />
+        android:text="" 
+         android:textColor="@android:color/black"/>
     
     <Button
         android:id="@+id/cancelBt"
@@ -86,7 +92,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/rsvdTv2"
-        android:text="@string/cancel" >
+        android:text="@string/cancel" 
+        >
         <requestFocus />
 	</Button>
     

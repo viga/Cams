@@ -8,6 +8,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentTop="true"
 	    android:textSize="15sp"
+	    android:textColor="@android:color/black"
 	    android:text="IP端口设置"
 	    android:gravity="center_horizontal"
 	    />
@@ -17,6 +18,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+           android:textColor="@android:color/black"
         android:text="@string/srvipaddr" >
         <requestFocus />
 	</TextView>
@@ -36,6 +38,7 @@
         android:layout_height="wrap_content"        
         android:layout_below="@+id/srvIpaddrEt"
         android:layout_centerHorizontal="true"
+           android:textColor="@android:color/black"
         android:text="@string/srvport" />
 
     <EditText
@@ -53,6 +56,7 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/srvPortEt"
         android:layout_centerHorizontal="true"
+           android:textColor="@android:color/black"
         android:text="" />
     
     <Button
@@ -69,6 +73,7 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/confirmBt"
         android:layout_centerHorizontal="true"
+           android:textColor="@android:color/black"
         android:text="" />
     
     <Button

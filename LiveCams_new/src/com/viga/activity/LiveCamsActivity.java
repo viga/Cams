@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -921,6 +922,8 @@ public class LiveCamsActivity extends Activity {
 	}
 
 	/* 在线播放点击处理函数 */
+
+
 	private void avPlayClickProcess(View mPlay) {
 		// 发送请求实时播放列表命令
 		if(SettingAndStatus.settings.useBlueTooth){

@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -114,7 +115,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
         mysp=this.getSharedPreferences("fileupload", Context.MODE_PRIVATE);
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {    
         	}else {    
-        		Toast.makeText(getApplicationContext(), "SD卡不可用，返回主界面", Toast.LENGTH_LONG).show();
+        		Utils.showShortNotice(getApplicationContext(), "SD卡不可用，返回主界面");
         		Intent intent = new Intent(this,LiveCamsActivity.class);
         		startActivity(intent);
         	 }   
@@ -125,7 +126,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
 			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 				dismissPopUpwindow();
 			}
-		});
+		});	
     }
     
     private void initUI(){
@@ -134,7 +135,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
         tv_nation_video=(TextView) findViewById(R.id.tv_nation_video);
         tv_nation_photo.setOnClickListener(this);
         tv_nation_video.setOnClickListener(this);
-        //tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonbg2));
+        tv_nation_photo.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_delwords_sel));
 		tv_nation_photo.setClickable(false);
     	
     	
@@ -211,7 +212,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
 		    				editor.commit();
 		    				mlistFiles("photo");
 						}else{
-							Toast.makeText(getApplicationContext(), "照片文件："+thisFile.getName()+"上传失败", Toast.LENGTH_SHORT).show();
+							Utils.showLongNotice(getApplicationContext(), "照片文件："+thisFile.getName()+"上传失败");
 						}
 					}else{
 						if(uploadVideoToS(thisFile)){
@@ -220,7 +221,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
 		    				editor.commit();
 						    mlistFiles("video");
 						}else{
-							Toast.makeText(getApplicationContext(), "视频文件："+thisFile.getName()+"上传失败", Toast.LENGTH_SHORT).show();
+							Utils.showLongNotice(getApplicationContext(), "视频文件："+thisFile.getName()+"上传失败");
 						}
 					}
 			}
@@ -241,7 +242,7 @@ public class NationScanActivity extends Activity implements OnClickListener {
 							audioFile.delete();
 							mlistFiles("video");
 						}
-						Toast.makeText(getApplicationContext(), thisFile.getName()+"已删除", Toast.LENGTH_SHORT).show();
+						Utils.showShortNotice(getApplicationContext(), thisFile.getName()+"已删除");
 					}
 				}); 
 		        builder.setNegativeButton("取消", null);
@@ -493,4 +494,10 @@ public class NationScanActivity extends Activity implements OnClickListener {
 		 }
 		return true;
 	 }
+	 
+	 
+	 
+	 
+	 
+	 
 }

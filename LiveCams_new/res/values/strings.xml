@@ -39,6 +39,7 @@
     <string name="audiostat">音频：0kbps</string>
     <string name="videostat">视频：0kbps</string>
     <string name="pleaselogin">请登录服务</string>
+ 
 
     <string-array name="vsz4sp">
         <item>QCIF(176x144)</item>
@@ -52,5 +53,6 @@
     <string name="title_activity_nation_scan">NationScanActivity</string>
     <string name="title_activity_list_photo_acticity">ListPhotoActicity</string>
     <string name="title_activity_setting_detail">SettingDetailActivity</string>
+
 
 </resources>

@@ -9,6 +9,7 @@
 	    android:layout_alignParentTop="true"
 	    android:textSize="15sp"
 	    android:text="照片参数设置"
+	    android:textColor="@android:color/black"
 	    android:gravity="center_horizontal"
 	    />
     <TextView
@@ -18,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/picsize" />
+        android:text="@string/picsize"
+        android:textColor="@android:color/black" />
     
     <Spinner
         android:id="@+id/picSizeSp"
@@ -35,7 +37,8 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/picSizeSp"
         android:layout_centerHorizontal="true"
-        android:text="@string/picquality" />
+        android:text="@string/picquality"
+        android:textColor="@android:color/black" />
     
     <SeekBar
         android:id="@+id/picQualitySb"
@@ -52,7 +55,8 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/picQualitySb"
         android:layout_centerHorizontal="true"
-        android:text="" />
+        android:text="" 
+        android:textColor="@android:color/black"/>
     
     <Button
         android:id="@+id/confirmBt"
@@ -68,7 +72,8 @@
         android:layout_height="wrap_content"            
         android:layout_below="@+id/confirmBt"
         android:layout_centerHorizontal="true"
-        android:text="" />
+        android:text="" 
+        android:textColor="@android:color/black"/>
     
     <Button
         android:id="@+id/cancelBt"
@@ -85,6 +90,7 @@
         android:layout_alignBaseline="@+id/picQualityTv"
         android:layout_alignBottom="@+id/picQualityTv"
         android:layout_centerHorizontal="true"
-        android:text="" />
+        android:text="" 
+        android:textColor="@android:color/black"/>
     
 </RelativeLayout>

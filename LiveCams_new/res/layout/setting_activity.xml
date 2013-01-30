@@ -43,10 +43,10 @@
            android:textColor="#6495ED"/>
        </LinearLayout>
        <ImageView
-           android:layout_width="30px"
-           android:layout_height="30px"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
            android:layout_gravity="center"
-           android:src="@drawable/more_details" />
+           android:src="@drawable/list_header_arrow_right" />
        	
    </LinearLayout>
    
@@ -80,10 +80,10 @@
            android:textColor="#6495ED"/>
        </LinearLayout>
        <ImageView
-           android:layout_width="30px"
-           android:layout_height="30px"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
            android:layout_gravity="center"
-           android:src="@drawable/more_details" />
+           android:src="@drawable/list_header_arrow_right" />
    </LinearLayout>
    
      
@@ -239,10 +239,10 @@
            android:textColor="#6495ED"/>
        </LinearLayout>
        <ImageView
-           android:layout_width="30px"
-           android:layout_height="30px"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
            android:layout_gravity="center"
-           android:src="@drawable/more_details" />
+           android:src="@drawable/list_header_arrow_right" />
    </LinearLayout>
      
 <!--      录像双向语音 -->
@@ -364,10 +364,10 @@
            android:textColor="#6495ED"/>
        </LinearLayout>
        <ImageView
-           android:layout_width="30px"
-           android:layout_height="30px"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
            android:layout_gravity="center"
-           android:src="@drawable/more_details" />
+           android:src="@drawable/list_header_arrow_right" />
    </LinearLayout>
      
 <!--      拍照保存 -->

@@ -47,7 +47,6 @@ public  class MySDLView extends SurfaceView implements SurfaceHolder.Callback {
 
 	// Called when we have a valid drawing surface
 	public void surfaceCreated(SurfaceHolder holder) {
-
 	}
 
 	// Called when we lose the surface

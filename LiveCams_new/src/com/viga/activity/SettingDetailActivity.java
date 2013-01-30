@@ -237,9 +237,9 @@ public class SettingDetailActivity extends Activity {
 				btCancle=(Button) findViewById(R.id.cancelBt);
 				btCancle.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-						if(getWindow().getAttributes().softInputMode==(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED)){
-						((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(SettingDetailActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-						}
+						//if(getWindow().getAttributes().softInputMode==(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED)){
+						//((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(SettingDetailActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+						//}
 						startActivity(intent);
 						SettingDetailActivity.this.finish();
 					}
