@@ -19,6 +19,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.viga.engine.H264Stream;
 import com.viga.engine.MyApplication;
 import com.viga.engine.SettingAndStatus;
 import com.viga.utils.Utils;
@@ -27,11 +28,14 @@ public class SettingDetailActivity extends Activity {
 		private TextView tv;
 		private EditText et1, et2;
 		private Spinner sp;
+		private Spinner sp_fps;
 		private SeekBar sb;
 		private Button btConfirm,btCancle;
 		private Intent intent;
 		private List<Camera.Size> cslist = null;
 		private Camera.Size cameraSize;
+		private ArrayAdapter<String> adapter;
+		private ArrayAdapter<String> adapter_fps;
 		@Override 
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -42,7 +46,9 @@ public class SettingDetailActivity extends Activity {
 			if(0==SettingActivity.settingposition){
 			setContentView(R.layout.setting_server);
 			et1 = (EditText) findViewById(R.id.srvIpaddrEt);
+			
 			et1.setText(Utils.intToIpaddr(SettingAndStatus.settings.srvipaddr));
+			et1.setSelection(13);
 			et2 = (EditText) findViewById(R.id.srvPortEt);
 			et2.setText("" + SettingAndStatus.settings.srvport);
 			btConfirm=(Button) findViewById(R.id.confirmBt);
@@ -112,33 +118,48 @@ public class SettingDetailActivity extends Activity {
 			else if(3==SettingActivity.settingposition){
 				setContentView(R.layout.setting_av);
 				String[] items = getResources().getStringArray(R.array.vsz4sp);
+				String[] items_fps = getResources().getStringArray(R.array.fps4sp);
 				ArrayList<String> list = new ArrayList<String>();
 				for (int i = 0; i < items.length; i++) {
 					list.add(items[i]);
 				}
-				ArrayAdapter<String> adapter;
+				
+				ArrayList<String> list_fps = new ArrayList<String>();
+				for (int i = 0; i < items_fps.length; i++) {
+					list_fps.add(items_fps[i]);
+				}
+				
 				adapter = new ArrayAdapter<String>(SettingDetailActivity.this,
 						android.R.layout.simple_spinner_item, list);
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				
+				adapter_fps = new ArrayAdapter<String>(SettingDetailActivity.this,
+						android.R.layout.simple_spinner_item, list_fps);
+				adapter_fps.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				sp = (Spinner) findViewById(R.id.videoSizeSp);
+				sp_fps = (Spinner) findViewById(R.id.videofps);
 				sp.setAdapter(adapter);
+				sp_fps.setAdapter(adapter_fps);
 				sp.setPrompt("视频尺寸:");
+				sp_fps.setPrompt("视频帧率:");
 				sp.setSelection(SettingAndStatus.settings.videosize);
-				et1 = (EditText) findViewById(R.id.vframeRateEt);
-				et1.setText("" + SettingAndStatus.settings.vframerate);
+				sp_fps.setSelection(SettingAndStatus.settings.vframerate);
+				//et1 = (EditText) findViewById(R.id.vframeRateEt);
+				//et1.setText("" + SettingAndStatus.settings.vframerate);
 				et2 = (EditText) findViewById(R.id.vbitRateEt);
 				et2.setText("" + SettingAndStatus.settings.vbitrate);
+				et2.setSelection(6);
 				btConfirm=(Button) findViewById(R.id.confirmBt);
 				btConfirm.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 						int videosize = sp.getSelectedItemPosition();
-						int framerate = Integer.parseInt(et1.getText().toString());
+						int framerate = sp_fps.getSelectedItemPosition();
 						int bitrate = Integer.parseInt(et2.getText().toString());
 						if (videosize != SettingAndStatus.settings.videosize
-								|| framerate != SettingAndStatus.settings.vframerate
+								|| H264Stream.intVideoFps(framerate) !=  H264Stream.intVideoFps(SettingAndStatus.settings.vframerate)
 								|| bitrate != SettingAndStatus.settings.vbitrate) {
 							SettingAndStatus.settings.videosize = videosize;
-							SettingAndStatus.settings.vframerate = framerate;
+							SettingAndStatus.settings.vframerate = (int) H264Stream.intVideoFps(framerate);
 							SettingAndStatus.settings.vbitrate = bitrate;
 							SettingAndStatus.modify("videosize", videosize);
 							SettingAndStatus.modify("vframerate", framerate);

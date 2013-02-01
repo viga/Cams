@@ -47,6 +47,14 @@
         <item>CIF(352x288)</item>
         <item>VGA(640x480)</item>
     </string-array>
+    
+       <string-array name="fps4sp">
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+    </string-array>
 
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>

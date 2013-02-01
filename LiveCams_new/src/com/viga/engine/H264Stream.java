@@ -171,6 +171,43 @@ public class H264Stream {				// SIZE	    HTCC510E  MIONEPLUS
 			return "INVALID";
 		}		
 	}
+	//视频帧率转换
+	
+	public static String stringVideoFps(int videosize){
+		if(TYPE_QCIF==videosize){
+			return "10";
+		}else if(TYPE_QVGA==videosize){
+			return "15";
+		}else if(TYPE_CIF==videosize){
+			return "20";
+		}else if(TYPE_VGA==videosize){
+			return "25";
+		}else if(TYPE_D1==videosize){
+			return "30";
+		}else{
+			return "INVALID";
+		}		
+	}
+	
+	public static int intVideoFps(int videosize){
+		if(TYPE_QCIF==videosize){
+			return 10;
+		}else if(TYPE_QVGA==videosize){
+			return 15;
+		}else if(TYPE_CIF==videosize){
+			return 20;
+		}else if(TYPE_VGA==videosize){
+			return 25;
+		}else if(TYPE_D1==videosize){
+			return 30;
+		}else{
+			return 0;
+		}		
+	}
+	
+	
+	
+	
 	
 	/*获取最大码流长度*/
 	public static int getMaxFrameLength(int videosize){

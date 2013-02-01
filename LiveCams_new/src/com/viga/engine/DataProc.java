@@ -36,6 +36,7 @@ public class DataProc {
 	public static ThreadExt videoRecAndTx = null;
 	public static ThreadExt audioRecAndTx = null;
 	public static ThreadExt videoRxAndPlay = null;
+	public static ThreadExt localvideoRxAndPlay = null;
 	public static ThreadExt audioRxAndPlay = null;
 	public static ThreadExt videoNationUpload = null;
 	public static ThreadExt audioNationUpload = null;
@@ -119,7 +120,7 @@ public class DataProc {
 		}
 	}
 
-	/**/
+	
 	public static void startVideoRxAndPlay(int priority, Object userdata) {
 		if (null == videoRxAndPlay) {
 			videoRxAndPlay = utils.new ThreadExt(new Runnable() {
@@ -139,7 +140,25 @@ public class DataProc {
 			videoRxAndPlay.start();
 		}
 	}
-
+	public static void startlocalVideoRxAndPlay(int priority, Object userdata) {
+		if (null == localvideoRxAndPlay) {
+			localvideoRxAndPlay = utils.new ThreadExt(new Runnable() {
+				public void run() {
+									
+					localvideoRxAndPlay(localvideoRxAndPlay);
+				
+					}
+				
+			});
+			if (priority > 0) {
+				localvideoRxAndPlay.setPriority(priority);
+			}
+			if (null != userdata) {
+				localvideoRxAndPlay.setUserData(userdata);
+			}
+			localvideoRxAndPlay.start();
+		}
+	}
 	public static void startAudioRxAndPlay(int priority, Object userdata) {
 		if (null == audioRxAndPlay) {
 			audioRxAndPlay = utils.new ThreadExt(new Runnable() {
@@ -247,7 +266,10 @@ public class DataProc {
 		startAudioRxAndPlay(aprio, aud);
 		startVideoRxAndPlay(vprio, vud);
 	}
-
+	public static void startlocalRxAndPlay(int vprio, int aprio, Object vud, Object aud) {
+		startAudioRxAndPlay(aprio, aud);
+		startlocalVideoRxAndPlay(vprio, vud);
+	}
 	public static void startRecAndTx(int vprio, int aprio, Object vud, Object aud) {
 		startAudioRecAndTx(aprio, aud);
 		startVideoRecAndTx(vprio, vud);
@@ -797,6 +819,69 @@ public class DataProc {
 							
 							Matrix mx=new Matrix();
 							mx.setRotate(90);
+							
+							cv.drawBitmap(bmp, (SettingAndStatus.displayheight - width) / 2,
+									(SettingAndStatus.displaywidth - height) / 2, pt);
+							holder.unlockCanvasAndPost(cv);
+						
+						}
+					}
+
+					/*
+					 * if(null!=yuvrecorder){
+					 * yuvrecorder.write(buffer,12,size-12); }
+					 */
+				}
+				Date end = new Date();
+				long mscnt = end.getTime() - begin.getTime();
+				if (mscnt >= 950) {// 约1秒刷新一次
+					begin = end;
+					refreshProgressBar(0, Vca.getVideoBitrate());
+				}
+				}
+			}
+		}
+
+    //本地视频数据接收、播放线程 
+	private static void localvideoRxAndPlay(ThreadExt thread) {
+		Log.v(TAG, "视频数据获取、播放线程已启动!");
+		int bufsize = 1024 * 1024;// 和Vca.Param中的videofrmlen保持一致;
+		int[] buffer = new int[bufsize];
+		SurfaceHolder holder = null;
+		int oldwidth = 0, oldheight = 0, framebufcnt = 0;
+		Date begin = new Date();
+		while (!thread.isExit()) {
+			int size = Vca.getVideoData2(buffer, 1000);
+			//Log.i(TAG, size+"");
+			if (size > 0) {
+				if (0 == SettingAndStatus.settings.h264decen) {
+					Vca.updateVideoBitrate(size);
+				
+				} else {
+					holder = (SurfaceHolder) thread.getUserData();
+					if (null != holder) {
+						synchronized (holder) {
+							int width = Utils.intSwapByte(buffer[1]);
+							int height = Utils.intSwapByte(buffer[2]);
+							
+							
+							Bitmap bmp = Bitmap.createBitmap(buffer, 2, width, width, height,
+									Bitmap.Config.RGB_565);
+							Canvas cv = holder.lockCanvas();
+							Paint pt = new Paint();
+							if (oldwidth != width || oldheight != height) {
+								if (0 != oldwidth && 0 != oldheight) {
+									framebufcnt = 8;
+								}
+								oldwidth = width;
+								oldheight = height;
+							}
+							if (framebufcnt > 0) {
+								cv.drawColor(Color.BLACK);
+								framebufcnt--;
+							}
+							Matrix mx=new Matrix();
+							mx.setRotate(90);
 							Bitmap newbmp=Bitmap.createBitmap(bmp, 0, 0, width, height, mx, false);
 							cv.drawBitmap(newbmp, (SettingAndStatus.displayheight - width) / 2+45,
 									(SettingAndStatus.displaywidth - height) / 2-45, pt);
@@ -819,8 +904,6 @@ public class DataProc {
 				}
 			}
 		}
-
-	
 
 	/* 音频数据接收、播放线程 */
 	private static void audioRxAndPlay(ThreadExt thread) {

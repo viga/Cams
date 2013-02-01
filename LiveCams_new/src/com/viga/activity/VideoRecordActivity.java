@@ -116,7 +116,7 @@ public class VideoRecordActivity extends Activity {
 	    			mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP); 
 	    			mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
 	    			if(0!=SettingAndStatus.settings.vframerate){
-	    				mediaRecorder.setVideoFrameRate(SettingAndStatus.settings.vframerate);
+	    				mediaRecorder.setVideoFrameRate(H264Stream.intVideoFps(SettingAndStatus.settings.vframerate));
 	    			}
 	    			if(0!=SettingAndStatus.settings.vbitrate){
 	    				mediaRecorder.setVideoEncodingBitRate(SettingAndStatus.settings.vbitrate);

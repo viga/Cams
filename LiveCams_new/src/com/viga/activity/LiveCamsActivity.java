@@ -110,7 +110,7 @@ public class LiveCamsActivity extends Activity {
 					}
 				}).setNegativeButton("取 消", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						ib_quit.setImageDrawable(null);
+						//ib_quit.setImageDrawable(null);
 						dialog.cancel();
 
 					}

@@ -40,22 +40,21 @@
         android:layout_below="@+id/videoSizeSp"
         android:text="@string/vframerate" 
         android:textColor="@android:color/black"/>
-
-    <EditText
-        android:id="@+id/vframeRateEt"
+   <Spinner
+        android:id="@+id/videofps"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/vframeRateTv"
-        android:ems="10"
-        android:inputType="number" />
+        android:layout_below="@+id/vframeRateTv" >
+        <requestFocus />
+    </Spinner>
 
     <TextView
         android:id="@+id/vbitRateTv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/vframeRateEt"
+        android:layout_below="@+id/videofps"
         android:text="@string/vbitrate" 
         android:textColor="@android:color/black"/>
 

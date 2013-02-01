@@ -13,6 +13,7 @@ public final class R {
         public static final int outanim=0x7f040001;
     }
     public static final class array {
+        public static final int fps4sp=0x7f060001;
         public static final int vsz4sp=0x7f060000;
     }
     public static final class attr {
@@ -197,12 +198,12 @@ public final class R {
         public static final int tv_setting_videoadjust=0x7f070053;
         public static final int vbitRateEt=0x7f070061;
         public static final int vbitRateTv=0x7f070060;
-        public static final int vframeRateEt=0x7f07005f;
         public static final int vframeRateTv=0x7f07005e;
         public static final int videoSizeSp=0x7f07005d;
         public static final int videoSizeTv=0x7f07005c;
         public static final int videoSv=0x7f070039;
         public static final int videoTv=0x7f07003b;
+        public static final int videofps=0x7f07005f;
     }
     public static final class layout {
         public static final int activity_nation_scan=0x7f030000;

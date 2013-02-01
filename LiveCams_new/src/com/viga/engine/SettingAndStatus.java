@@ -276,8 +276,8 @@ public class SettingAndStatus {
         	settings.logoutcheck=false;
         	settings.avrecord=false;
         	settings.videosize=H264Stream.TYPE_CIF;
-        	settings.vframerate=0;
-        	settings.vbitrate=0;
+        	settings.vframerate=2;
+        	settings.vbitrate=500000;
         	settings.speexen=1;
         	settings.encmode=0;
         	settings.decmode=0;

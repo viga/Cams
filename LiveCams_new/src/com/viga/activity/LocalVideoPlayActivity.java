@@ -56,7 +56,7 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		mw = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "myLock");
 		mw.acquire();
-		DataProc.startRxAndPlay(0, 8, null, null);
+		DataProc.startlocalRxAndPlay(0, 8, null, null);
 		Vca vca = new Vca();
 		Vca.Arg arg = vca.new Arg(1, -1);
 		arg.setWxH(SettingAndStatus.displayheight-280,SettingAndStatus.displaywidth-140);
@@ -146,8 +146,8 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
 	
 	private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
 		public void surfaceCreated(SurfaceHolder holder) {
-			if (null != DataProc.videoRxAndPlay) {
-				DataProc.videoRxAndPlay.setUserData(holder);
+			if (null != DataProc.localvideoRxAndPlay) {
+				DataProc.localvideoRxAndPlay.setUserData(holder);
 			}
 		}
 
@@ -156,9 +156,9 @@ public class LocalVideoPlayActivity extends Activity implements OnClickListener 
 		}
 
 		public void surfaceDestroyed(SurfaceHolder holder) {
-			if (null != DataProc.videoRxAndPlay) {
+			if (null != DataProc.localvideoRxAndPlay) {
 				synchronized (holder) {
-					DataProc.videoRxAndPlay.setUserData(null);
+					DataProc.localvideoRxAndPlay.setUserData(null);
 				}
 			}
 		}

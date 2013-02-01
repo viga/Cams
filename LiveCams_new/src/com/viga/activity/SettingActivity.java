@@ -176,7 +176,7 @@ public class SettingActivity extends Activity implements OnClickListener {
 				+ SettingAndStatus.settings.srvport);
 		tv_setting_deviceid.setText("手机终端/" + SettingAndStatus.settings.devid);
 		tv_setting_videoadjust.setText(H264Stream.stringVideoSize(SettingAndStatus.settings.videosize) + "/"
-				+ SettingAndStatus.settings.vbitrate + "bps/" + SettingAndStatus.settings.vframerate + "fps");
+				+ SettingAndStatus.settings.vbitrate + "bps/" + H264Stream.stringVideoFps(SettingAndStatus.settings.vframerate) + "fps");
 		tv_setting_photoadjust.setText(SettingAndStatus.settings.picwidth + "x" + SettingAndStatus.settings.picheight
 				+ "/Q" + SettingAndStatus.settings.picquality);
 	}

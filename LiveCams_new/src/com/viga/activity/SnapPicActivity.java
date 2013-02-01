@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -41,6 +42,8 @@ public class SnapPicActivity extends Activity {
 	private Handler					oldHandler=null;
 	private SharedPreferences Mysp;
 	private Editor editor;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +106,7 @@ public class SnapPicActivity extends Activity {
 				Toast toast=Toast.makeText(context,info,255==msg.what?Toast.LENGTH_SHORT:Toast.LENGTH_LONG);
 				toast.show();
     			break;
+    		
     		default:
     			super.handleMessage(msg);
     			break;
@@ -175,7 +179,11 @@ public class SnapPicActivity extends Activity {
 			    		}
 		    		}
     			}
-    		}else{
+    			
+    				
+    			}
+    				
+    		else{
     			Log.v(TAG,"未检测到SD卡，请插入SD卡!");    			
     		}
     		
