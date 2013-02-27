@@ -15,7 +15,7 @@
 	    />
     <TextView
         android:id="@+id/devTypeTv"
-        android:layout_marginTop="20px"
+        android:layout_marginTop="15dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -65,28 +65,23 @@
     
     <Button
         android:id="@+id/confirmBt"
-        android:layout_width="fill_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rsvdTv"
-        android:text="确  定" />
-
-    <TextView
-        android:id="@+id/rsvdTv2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"            
-        android:layout_below="@+id/confirmBt"
-        android:layout_centerHorizontal="true"
-        android:text="" />
-    
-    <Button
+        android:text="@string/confirm3" />
+     <Button
         android:id="@+id/cancelBt"
-        android:layout_width="fill_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/rsvdTv2"
+           android:layout_below="@id/rsvdTv"
+       android:layout_toRightOf="@id/confirmBt"
+          android:layout_alignParentRight="true"
         android:text="@string/cancel" >
-        <requestFocus />
+      
 	</Button>
+  
+   
+
     
 </RelativeLayout>

@@ -123,7 +123,9 @@ public class VideoRecordActivity extends Activity {
 	    			}
 	    			if(0!=(width=H264Stream.getVideoWidth(SettingAndStatus.settings.videosize)) && 
 	    				0!=(height=H264Stream.getVideoHeight(SettingAndStatus.settings.videosize))){
+	    				
 	    				mediaRecorder.setVideoSize(width,height);
+	    				SettingAndStatus.settings.localvideosize=SettingAndStatus.settings.videosize;
 	    			}
 	    			mediaRecorder.setOutputFile(sockfd.getFileDescriptor());
 	    			//mediaRecorder.setOutputFile("/mnt/sdcard/LiveCams/good.3gp");//直接录文件

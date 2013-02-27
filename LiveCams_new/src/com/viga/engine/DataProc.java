@@ -371,6 +371,10 @@ public class DataProc {
 						boolean idr = H264Stream.isIDR(head[4]);
 						if (idr) {
 							offset += H264Stream.writeHead(buffer, offset, length - offset);
+							if(b){
+								offset += H264Stream.writeSPS(buffer, offset, length - offset,
+										SettingAndStatus.settings.localvideosize);
+							}
 							offset += H264Stream.writeSPS(buffer, offset, length - offset,
 									SettingAndStatus.settings.videosize);
 							offset += H264Stream.writeHead(buffer, offset, length - offset);

@@ -103,6 +103,8 @@ public class SettingAndStatus {
 					settings.avrecord=1==cur.getInt(1);
 				}else if(cur.getString(0).equals("videosize")){
 					settings.videosize=cur.getInt(1);
+				}else if(cur.getString(0).equals("localvideosize")){
+					settings.localvideosize=cur.getInt(1);
 				}else if(cur.getString(0).equals("vframerate")){
 					settings.vframerate=cur.getInt(1);
 				}else if(cur.getString(0).equals("vbitrate")){
@@ -172,6 +174,7 @@ public class SettingAndStatus {
 		db.execSQL(sql+"('useBlueTooth'," +(settings.useBlueTooth?1:0)+");");//蓝牙
 		db.execSQL(sql+"('avrecord',"	 +(settings.avrecord?1:0)+");");
 		db.execSQL(sql+"('videosize',"	 +settings.videosize+");");
+		db.execSQL(sql+"('localvideosize',"	 +settings.localvideosize+");");
 		db.execSQL(sql+"('vframerate',"	 +settings.vframerate+");");
 		db.execSQL(sql+"('vbitrate',"	 +settings.vbitrate+");");
 		db.execSQL(sql+"('speexen',"	 +settings.speexen+");");
@@ -262,6 +265,7 @@ public class SettingAndStatus {
     	public boolean  audioduplex0;//上传时是否双向语音
     	public boolean  audioduplex1;//播放是是否双向语音
     	public int      mdaport;
+    	public int localvideosize;
     	
     	/*复位设置——出厂设置*/
     	public void reset(){
@@ -276,6 +280,7 @@ public class SettingAndStatus {
         	settings.logoutcheck=false;
         	settings.avrecord=false;
         	settings.videosize=H264Stream.TYPE_CIF;
+        	settings.localvideosize=H264Stream.TYPE_CIF;
         	settings.vframerate=2;
         	settings.vbitrate=500000;
         	settings.speexen=1;
